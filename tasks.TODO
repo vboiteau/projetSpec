@@ -1,0 +1,21 @@
+Les différentes tâches à implenter obligatoires:
+  ☐ Implémentation de la BD @proto1
+  ☐ Connexion à la BD @proto1
+
+  ☐ Création d'un compte client @proto1
+  ☐ Modification d'un compte client @proto1
+  ☐ Supression d'un compte client @proto1
+
+  ☐ Ajout d'une entrée texte @proto2
+  ☐ Modification d'une entrée texte @proto2
+  ☐ Supression d'une entrée texte @proto2
+
+  ☐ Ajout d'une catégorie à une entrée @proto3
+  ☐ Filtre des entrées selon les catégories @proto3
+
+  ☐ Ajout d'un(des) libellé(s) à une entrée @proto3
+  ☐ Filtre des entrées selon les libellés @proto3
+
+  ☐ Ajouter l'option de joindre un fichier à une entrée @proto4
+Les différentes tâches à implenter faculatives:
+  ☐ Ajouter les fonctionnalités de lecture des fichiers exemples(PDF, vidéo, musique, image)
