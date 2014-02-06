@@ -39,3 +39,4 @@ Thumbs.db
 *.sublime-workspace
 sftp-config.json
 *.sass-cache/
+connexion.inc.php
