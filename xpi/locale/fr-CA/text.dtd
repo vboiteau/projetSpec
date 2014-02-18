@@ -1,0 +1,8 @@
+<!ENTITY projetSpec.button.label          "Ouvrir">
+<!ENTITY projetSpec.connexion.username    "Entrer votre nom d'utilisateur:">
+<!ENTITY projetSpec.connexion.password    "Entrer votre mot de passe:">
+<!ENTITY projetSpec.connexion.passwordConfirm    "Confirmer votre mot de passe:">
+<!ENTITY projetSpec.connexion.question    "Entrer une question de sécurité:">
+<!ENTITY projetSpec.connexion.answer    "Entrer la réponse à votre question de sécurité:">
+<!ENTITY projetSpec.connexion.label    	  "Se connecter">
+<!ENTITY projetSpec.inscrire.label    	  "S'inscrire">

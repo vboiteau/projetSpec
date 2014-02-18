@@ -25,6 +25,7 @@
 *.log
 *.sql
 *.sqlite
+connexion.inc.php
 
 # OS generated files #
 ######################
@@ -39,4 +40,3 @@ Thumbs.db
 *.sublime-workspace
 sftp-config.json
 *.sass-cache/
-connexion.inc.php
