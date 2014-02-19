@@ -11,8 +11,8 @@ if ("undefined" == typeof(projetSpec)) {
 projetSpec.BrowserOverlay = {
   
   afficher : function(aEvent) {
-    window.open("chrome://projetSpec/content/connexion/connexion.xul",
-    "projetSpec-connexion",
+    window.open("chrome://projetSpec/content/interface/interface.xul",
+    "projetSpec-interface",
     "chrome,centerscreen");
   }
 };

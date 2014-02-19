@@ -6,6 +6,16 @@
 	if(isset($_SESSION["projetSpec"])){
 		
 	}
+	if(isset($_POST['check'])){
+		if(isset($_SESSION["projetSpec"]["username"])){
+			echo "true";
+		}else{
+			echo "false";
+		}
+	}
+	if(isset($_POST['deconnecter'])){
+		unset($_SESSION['projetSpec']['username']);
+	}
 	if(isset($_POST['inscription'])){
 		$arrIn=json_decode($_POST['inscription'],true);
 		foreach($arrIn as $strKey=>$strValue){

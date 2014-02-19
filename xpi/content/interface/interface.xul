@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+
+<?xml-stylesheet type="text/css" href="chrome://global/skin/" ?>
+<!DOCTYPE overlay SYSTEM "chrome://projetSpec/locale/text.dtd">
+<window id="interface" title="&projetSpec.interface.title;" orient="vertical" xmlns:html="http://www.w3.org/1999/xhtml" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+	<script type="application/x-javascript" src="chrome://projetSpec/content/interface/script.js" />
+	<button label="&projetSpec.interface.deconnexion;" oncommand="projetSpec.interface.deconnexion(event);"/>
+</window>

@@ -29,6 +29,7 @@ projetSpec.connexion = {
         console.log(dataOut);
         if(typeof dataOut.success!="undefined"){
           self.close();
+          window.open("chrome://projetSpec/content/interface/interface.xul","projetSpec-interface","chrome,centerscreen");
         }else{
           if(typeof dataOut.username_error!="undefined"){
             document.getElementById("username_error").value=dataOut.username_error;
