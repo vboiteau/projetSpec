@@ -1,6 +1,9 @@
 projetSpec.home={
 	init:function(e){
-		alert("j'existe");
+		let action='look_for_connection';
+		let dataIn={};
+		dataIn['chat']='bungee';
+		serverRequest(action,dataIn);
 	},
 	signout:function(e){
 		alert(server);
@@ -10,4 +13,4 @@ projetSpec.home={
 	},
 };
 window.addEventListener(
-  "load", projetSpec.home.init(), false);
+  "load", function(){projetSpec.home.init();}, false);
