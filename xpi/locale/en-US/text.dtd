@@ -1,16 +1,5 @@
-<!ENTITY projetSpec.button.label           "Open">
-<!ENTITY projetSpec.interface.title        "Interface">
-<!ENTITY projetSpec.connexion.username     "Enter your username:">
-<!ENTITY projetSpec.connexion.password     "Enter your password:">
-<!ENTITY projetSpec.connexion.passwordConfirm     "Confirm your password:">
-<!ENTITY projetSpec.connexion.question     "Enter a security question:">
-<!ENTITY projetSpec.connexion.answer     "Enter the answer of your security question:">
-<!ENTITY projetSpec.inscrire.label         "Sign up">
-<!ENTITY projetSpec.connexion.label        "Sign in">
-<!ENTITY projetSpec.interface.deconnexion  "Sign out">
-<!ENTITY projetSpec.interface.suppression  "Delete my account">
-<!ENTITY projetSpec.oublier.label  "I've forgot my password">
-<!ENTITY projetSpec.username.label  "Continue">
-<!ENTITY projetSpec.username.title  "Enter your username">
-<!ENTITY projetSpec.question.title  "Answer your security question">
-<!ENTITY projetSpec.return.label  "Return my password">
+<!ENTITY toolbar.button.label "My specialisation project button">
+<!ENTITY toolbar.button.tooltiptext "My specialisation project button">
+<!ENTITY home.title "Home">
+<!ENTITY home.signout.button "Sign out">
+<!ENTITY home.delete.button "Delete my account">

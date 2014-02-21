@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/css" href="chrome://global/skin/" ?>
+<?xml-stylesheet type="text/css" href="chrome://projetSpec/skin/style.css"?>
+<!DOCTYPE overlay SYSTEM "chrome://projetSpec/locale/text.dtd">
+<overlay id="projetSpec-browser-overlay" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul" onload="installButton()">
+  <script type="application/x-javascript" src="chrome://projetSpec/content/js/commun.js" />
+  <script type="application/x-javascript" src="chrome://projetSpec/content/script.js" />
+    <toolbarpalette id="BrowserToolbarPalette" >
+      <toolbarbutton id="projetSpec-button" class="toolbarbutton-1 chromeclass-toolbar-additional" label="&toolbar.button.label;" tooltiptext="&toolbar.button.tooltiptext;" type="menu-button" oncommand="projetSpec.toolbar.open(event);"/>
+    </toolbarpalette>
+</overlay>

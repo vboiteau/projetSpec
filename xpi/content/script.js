@@ -1,24 +1,11 @@
-/**
- * projetSpec namespace.
- */
-if ("undefined" == typeof(projetSpec)) {
-  var projetSpec = {};
-};
-
-/**
- * Controls the browser overlay for the projetSpec extension.
- */
-projetSpec.BrowserOverlay = {
+projetSpec.toolbar = {
   
-  afficher : function(aEvent) {
-    window.open("chrome://projetSpec/content/interface/interface.xul",
-    "projetSpec-interface",
-    "chrome,centerscreen");
-  }
+  open:function(e){
+    window.open("chrome://projetSpec/content/home/home.xul","projetSpec-Home","chrome,centerscreen");
+  },
 };
 function installButton()
 {
-  console.log('jeminstall');
 	var id = "projetSpec-button";
 	var toolbarId = "nav-bar";
 	var toolbar = document.getElementById(toolbarId);

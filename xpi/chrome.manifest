@@ -3,5 +3,5 @@ skin      projetSpec  classic/1.0   skin/
 locale    projetSpec  en-US			locale/en-US/
 locale    projetSpec  fr-CA         locale/fr-CA/
 
-overlay chrome://browser/content/browser.xul  chrome://projetSpec/content/browserOverlay.xul
+overlay chrome://browser/content/browser.xul  chrome://projetSpec/content/toolbar.xul
 style chrome://global/content/customizeToolbar.xul chrome://projetSpec/skin/style.css

@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+
+<?xml-stylesheet type="text/css" href="chrome://global/skin/" ?>
+<!DOCTYPE overlay SYSTEM "chrome://projetSpec/locale/text.dtd">
+<window id="home" title="&home.title;" orient="vertical" xmlns:html="http://www.w3.org/1999/xhtml" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+	<script type="application/x-javascript" src="chrome://projetSpec/content/js/commun.js" />
+	<script type="application/x-javascript" src="chrome://projetSpec/content/home/home.js" />
+	<button label="&home.signout.button;" oncommand="projetSpec.home.signout(event);"/>
+	<button label="&home.delete.button;" oncommand="projetSpec.home.deleteAccount(event);"/>
+</window>

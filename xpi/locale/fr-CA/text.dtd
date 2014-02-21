@@ -1,16 +1,5 @@
-<!ENTITY projetSpec.button.label          "Ouvrir">
-<!ENTITY projetSpec.interface.title        "Interface">
-<!ENTITY projetSpec.connexion.username    "Entrer votre nom d'utilisateur:">
-<!ENTITY projetSpec.connexion.password    "Entrer votre mot de passe:">
-<!ENTITY projetSpec.connexion.passwordConfirm    "Confirmer votre mot de passe:">
-<!ENTITY projetSpec.connexion.question    "Entrer une question de sécurité:">
-<!ENTITY projetSpec.connexion.answer    "Entrer la réponse à votre question de sécurité:">
-<!ENTITY projetSpec.connexion.label    	  "Se connecter">
-<!ENTITY projetSpec.inscrire.label    	  "S'inscrire">
-<!ENTITY projetSpec.interface.deconnexion  "Se déconnecter">
-<!ENTITY projetSpec.interface.suppression  "Supprimer mon compte">
-<!ENTITY projetSpec.oublier.label  "J'ai oublié mon mot de passe">
-<!ENTITY projetSpec.username.label  "Poursuivre">
-<!ENTITY projetSpec.username.title  "Entrer votre nom d'utilisateur">
-<!ENTITY projetSpec.question.title  "Répondez à votre question de sécurité">
-<!ENTITY projetSpec.return.label  "Retourner mon mot de passe">
+<!ENTITY toolbar.button.label "Bouton de mon projet de spécialisation">
+<!ENTITY toolbar.button.tooltiptext "Ouvrir l'extension">
+<!ENTITY home.title "Accueil">
+<!ENTITY home.signout.button "Se déconnecter">
+<!ENTITY home.delete.button "Supprimer mon compte">
