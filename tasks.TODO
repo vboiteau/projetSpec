@@ -1,7 +1,11 @@
 Les différentes tâches à implenter obligatoires:
+  ☐ Connexion à un compte client @proto1 
+  ☐ Déconnexion d'un compte client @proto1 
+  ☐ Création d'un compte client @proto1 
+  ☐ Déconnexion d'un compte client @proto1 
 
-  ☐ Modification d'un compte client @proto1
-  ☐ Gestion de l'oubli de mot de passe @proto1
+  ☐ Modification d'un compte client @proto2
+  ☐ Gestion de l'oubli de mot de passe @proto2
 
   ☐ Ajout d'une entrée texte @proto2
   ☐ Modification d'une entrée texte @proto2
@@ -20,9 +24,5 @@ Les différentes tâches à implenter faculatives:
 
 ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
 Archive:
- ✔ Supression d'un compte client @proto1 @done (14-02-19 08:50) @project(Les différentes tâches à implenter obligatoires)
- ✔ Déconnexion au compte @proto1 @done (14-02-18 19:52) @project(Les différentes tâches à implenter obligatoires)
- ✔ Connexion au compte @proto1 @done (14-02-18 19:52) @project(Les différentes tâches à implenter obligatoires)
- ✔ Création d'un compte client @proto1 @done (14-02-18 19:50) @project(Les différentes tâches à implenter obligatoires)
  ✔ Implémentation de la BD @proto1 @done (14-02-05 21:17) @project(Les différentes tâches à implenter obligatoires)
  ✔ Connexion à la BD @proto1 @done (14-02-05 21:17) @project(Les différentes tâches à implenter obligatoires)
