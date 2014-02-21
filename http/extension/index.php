@@ -6,18 +6,22 @@
 	if(isset($_POST)){
 		foreach($_POST as $strAction=>$strData){
 			$arrIn=json_decode($strData,true);
-			if($strAction=='look_for_connection'){
-				lookForConnection();
-			}
-			if($strAction=='check_user'){
-				//echo($strData);
-				checkUser();
+			switch($strAction){
+				case 'look_for_connection':
+					lookForConnection();
+					break;
+				case 'check_user':
+					checkUser();
+					break;
+				case 'sign_out':
+					signOut();
+					break;
 			}
 		}
 	}
 	function lookForConnection(){
-		if(isset($_SESSION['projSpec']['user'])){
-			$GLOBALS['arrOut']=array("id_user"=>$_SESSION['projSpec']['user']['id'],"username"=>$_SESSION['projSpec']['user']['username']);
+		if(isset($_SESSION['projetSpec']['user'])){
+			$GLOBALS['arrOut']=array("username"=>$_SESSION['projetSpec']['user']['username']);
 		}else{
 			$GLOBALS['arrOut']['erreur']='aucune connexion';
 		}
@@ -36,12 +40,17 @@
 		$result->close();
 		//echo "{\"num_rows\":$num_rows}";
 		if($num_rows==1){
-			$_SESSION['projetSpec']['user']['username']=$username;
+			$_SESSION['projetSpec']['user']=array('username'=>$username);
 			$GLOBALS['arrOut']['success']='success';
 			$GLOBALS['arrOut']['user']= $username;
 		}else{
 			$GLOBALS['arrOut']['erreur']='error';
 		}
+		encode();
+	}
+	function signOut(){
+		unset($_SESSION['projetSpec']);
+		$GLOBALS['arrOut']['erreur']='signOut';
 		encode();
 	}
 	function encode(){

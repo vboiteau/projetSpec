@@ -8,7 +8,7 @@ projetSpec.toolbar = {
   serverReturn:function(dataOut){
         if(dataOut.erreur){
             openNewWindow("signin/signin.xul","Signin");
-        }if(dataOut.id_user){
+        }if(dataOut.username){
             openNewWindow("home/home.xul","Home");
         }
     },

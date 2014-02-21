@@ -5,7 +5,9 @@ projetSpec.home={
 		serverRequest(this,action,dataIn);
 	},
 	signout:function(e){
-		alert(url);
+		action="sign_out";
+		dataIn={};
+		serverRequest(this,action,dataIn);
 	},
 	deleteAccount:function(e){
 		alert(url);
@@ -15,6 +17,10 @@ projetSpec.home={
 			switch(dataOut.erreur){
 				case "aucune connexion":
 					console.log('no_connection');
+					break;
+				case "signOut":
+					self.close();
+					openNewWindow('signin/signin.xul','SignIn');
 					break;
 			}
 		}
