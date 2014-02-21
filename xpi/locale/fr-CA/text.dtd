@@ -11,3 +11,8 @@
 <!ENTITY signin.button "Se connecter">
 <!ENTITY signup.button "S'inscrire">
 <!ENTITY recoverPassword.button "mot de passe oublié?">
+
+<!ENTITY signup.title "Inscription">
+<!ENTITY passwordConfirmation.label "Confirmer votre mot de passe:">
+<!ENTITY question.label "Question:">
+<!ENTITY answer.label "Réponse:">

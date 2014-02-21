@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+
+<?xml-stylesheet type="text/css" href="chrome://global/skin/" ?>
+<?xml-stylesheet type="text/css" href="chrome://projetSpec/skin/style.css"?>
+<!DOCTYPE overlay SYSTEM "chrome://projetSpec/locale/text.dtd">
+<window id="signin" title="&signup.title;" orient="vertical" xmlns:html="http://www.w3.org/1999/xhtml" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul" class="signin-process">
+	<script type="application/x-javascript" src="chrome://projetSpec/content/js/commun.js" />
+	<script type="application/x-javascript" src="chrome://projetSpec/content/signup/signup.js" />
+	<hbox>
+		<label control="username" value="&username.label;"/>
+		<textbox id="username"/>
+	</hbox>
+	<label id="username_error"/>
+	<hbox>
+		<label control="password" value="&password.label;"/>
+		<textbox id="password"/>
+	</hbox>
+	<label id="password_error"/>
+	<hbox>
+		<label control="passwordConfirmation" value="&passwordConfirmation.label;"/>
+		<textbox id="passwordConfirmation"/>
+	</hbox>
+	<label id="passwordConfirmation_error"/>
+	<hbox>
+		<label control="question" value="&question.label;"/>
+		<textbox id="question"/>
+	</hbox>
+	<label id="question_error"/>
+	<hbox>
+		<label control="answer" value="&answer.label;"/>
+		<textbox id="answer"/>
+	</hbox>
+	<label id="answer_error"/>
+	<label id="signup_error"/>
+	<button label="&signup.button;" oncommand="projetSpec.signup.signup(event);"/>
+</window>

@@ -22,7 +22,8 @@ projetSpec.signin={
 		}
 	},
 	signup:function(e){
-
+		self.close();
+		openNewWindow("signup/signup.xul","Sign Up");
 	},
 	recoverPassword:function(e){
 
