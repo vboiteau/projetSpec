@@ -8,3 +8,9 @@
 <!ENTITY projetSpec.connexion.label    	  "Se connecter">
 <!ENTITY projetSpec.inscrire.label    	  "S'inscrire">
 <!ENTITY projetSpec.interface.deconnexion  "Se déconnecter">
+<!ENTITY projetSpec.interface.suppression  "Supprimer mon compte">
+<!ENTITY projetSpec.oublier.label  "J'ai oublié mon mot de passe">
+<!ENTITY projetSpec.username.label  "Poursuivre">
+<!ENTITY projetSpec.username.title  "Entrer votre nom d'utilisateur">
+<!ENTITY projetSpec.question.title  "Répondez à votre question de sécurité">
+<!ENTITY projetSpec.return.label  "Retourner mon mot de passe">

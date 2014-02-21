@@ -6,6 +6,24 @@
 	if(isset($_SESSION["projetSpec"])){
 		
 	}
+	if(isset($_POST["pRUsername"])){
+		$username=$_POST['pRUsername'];
+		$strQuery="SELECT question FROM t_user WHERE username=?";
+		$result=$objConnMySQLi->prepare($strQuery);
+		$result->bind_param('s',$username);
+		if($result->execute()){
+			$result->bind_result($question);
+			while($result->fetch()){
+				$_SESSION['projetSpec']['username']=$username;
+				$_SESSION['projetSpec']['question']=$question;
+				$arrOut['success']="Cet utilisateur exite.";
+			}
+		}if(!isset($arrOut["success"])){
+			$arrOut['erreur']="Cet utilisateur n'existe pas.";
+		}
+		$result->close();
+		echo json_encode($arrOut);
+	}
 	if(isset($_POST['check'])){
 		if(isset($_SESSION["projetSpec"]["username"])){
 			echo "true";
@@ -15,6 +33,14 @@
 	}
 	if(isset($_POST['deconnecter'])){
 		unset($_SESSION['projetSpec']['username']);
+	}
+	if(isset($_POST['suppression'])){
+		$username=$_SESSION['projetSpec']['username'];
+		unset($_SESSION['projetSpec']);
+		$sql="DELETE FROM t_user WHERE username='$username'";
+		$result=$objConnMySQLi->prepare($sql);
+		$result->execute();
+		$result->close();	
 	}
 	if(isset($_POST['inscription'])){
 		$arrIn=json_decode($_POST['inscription'],true);

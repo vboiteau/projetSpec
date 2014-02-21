@@ -8,3 +8,9 @@
 <!ENTITY projetSpec.inscrire.label         "Sign up">
 <!ENTITY projetSpec.connexion.label        "Sign in">
 <!ENTITY projetSpec.interface.deconnexion  "Sign out">
+<!ENTITY projetSpec.interface.suppression  "Delete my account">
+<!ENTITY projetSpec.oublier.label  "I've forgot my password">
+<!ENTITY projetSpec.username.label  "Continue">
+<!ENTITY projetSpec.username.title  "Enter your username">
+<!ENTITY projetSpec.question.title  "Answer your security question">
+<!ENTITY projetSpec.return.label  "Return my password">

@@ -46,9 +46,14 @@ projetSpec.connexion = {
       x.send(strJSON);
   },
   inscrire: function(e){
+    self.close();
   	window.open("chrome://projetSpec/content/inscription/inscription.xul",
     "projetSpec-inscription",
     "chrome,centerscreen");
-    self.close();
+  },
+  oublier: function(e){
+    window.open("chrome://projetSpec/content/passwordRecovery/username.xul",
+    "projetSpec-username",
+    "chrome,centerscreen");
   },
 };
