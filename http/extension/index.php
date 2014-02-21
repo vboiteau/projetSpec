@@ -9,6 +9,10 @@
 			if($strAction=='look_for_connection'){
 				lookForConnection();
 			}
+			if($strAction=='check_user'){
+				//echo($strData);
+				checkUser();
+			}
 		}
 	}
 	function lookForConnection(){
@@ -19,8 +23,30 @@
 		}
 		encode();
 	}
+	function checkUser(){
+		$username=$GLOBALS['arrIn']['username'];
+		$password=$GLOBALS['arrIn']['password'];
+		//echo "{'username':$username,'password':$password}";
+		$strQuery="SELECT id_user FROM t_user WHERE username=? AND password=?";
+		$result=$GLOBALS['objConnMySQLi']->prepare($strQuery);
+		$result->bind_param('ss',$username,$password);
+		$result->execute();
+		$result->store_result();
+		$num_rows=$result->num_rows();
+		$result->close();
+		//echo "{\"num_rows\":$num_rows}";
+		if($num_rows==1){
+			$_SESSION['projetSpec']['user']['username']=$username;
+			$GLOBALS['arrOut']['success']='success';
+			$GLOBALS['arrOut']['user']= $username;
+		}else{
+			$GLOBALS['arrOut']['erreur']='error';
+		}
+		encode();
+	}
 	function encode(){
 		$strJson=json_encode($GLOBALS['arrOut']);
 		echo $strJson;
 	}
+	$objConnMySQLi->close();
 ?>

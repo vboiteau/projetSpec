@@ -1,5 +1,13 @@
 <!ENTITY toolbar.button.label "My specialisation project button">
 <!ENTITY toolbar.button.tooltiptext "My specialisation project button">
+
 <!ENTITY home.title "Home">
-<!ENTITY home.signout.button "Sign out">
-<!ENTITY home.delete.button "Delete my account">
+<!ENTITY signout.button "Sign out">
+<!ENTITY delete.button "Delete my account">
+
+<!ENTITY signin.title "Sign in">
+<!ENTITY username.label "Username:">
+<!ENTITY password.label "Password:">
+<!ENTITY signin.button "Sign in">
+<!ENTITY signup.button "Sign up">
+<!ENTITY recoverPassword.button "forgot your password?">

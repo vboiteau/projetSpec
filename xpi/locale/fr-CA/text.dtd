@@ -1,5 +1,13 @@
 <!ENTITY toolbar.button.label "Bouton de mon projet de spécialisation">
 <!ENTITY toolbar.button.tooltiptext "Ouvrir l'extension">
+
 <!ENTITY home.title "Accueil">
-<!ENTITY home.signout.button "Se déconnecter">
-<!ENTITY home.delete.button "Supprimer mon compte">
+<!ENTITY signout.button "Se déconnecter">
+<!ENTITY delete.button "Supprimer mon compte">
+
+<!ENTITY signin.title "Connexion">
+<!ENTITY username.label "Nom d"utilisateur:">
+<!ENTITY password.label "Mot de passe:">
+<!ENTITY signin.button "Se connecter">
+<!ENTITY signup.button "S'inscrire">
+<!ENTITY recoverPassword.button "mot de passe oublié?">

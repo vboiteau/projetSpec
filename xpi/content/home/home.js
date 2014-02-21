@@ -1,19 +1,24 @@
 projetSpec.home={
 	init:function(e){
-		let action='look_for_connection';
-		let dataIn={};
-		dataIn['chat']='bungee';
-		alert(serverRequest(action,dataIn));
+		action='look_for_connection'
+		dataIn={};
+		serverRequest(this,action,dataIn);
 	},
 	signout:function(e){
-		alert(server);
+		alert(url);
 	},
 	deleteAccount:function(e){
-		alert(server);
+		alert(url);
 	},
-	returnOfInit(dataOut){
-		alert(dataOut);
-	}
+	serverReturn:function(dataOut){
+		if(dataOut.erreur){
+			switch(dataOut.erreur){
+				case "aucune connexion":
+					console.log('no_connection');
+					break;
+			}
+		}
+	},
 };
 window.addEventListener(
   "load", function(){projetSpec.home.init();}, false);

@@ -1,8 +1,17 @@
 projetSpec.toolbar = {
   
   open:function(e){
-    window.open("chrome://projetSpec/content/home/home.xul","projetSpec-Home","chrome,centerscreen");
+    let action='look_for_connection'
+    let dataIn={};
+    serverRequest(this,action,dataIn);
   },
+  serverReturn:function(dataOut){
+        if(dataOut.erreur){
+            openNewWindow("signin/signin.xul","Signin");
+        }if(dataOut.id_user){
+            openNewWindow("home/home.xul","Home");
+        }
+    },
 };
 function installButton()
 {

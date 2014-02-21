@@ -1,3 +1,11 @@
 #projetSpec-button {
   list-style-image: url("chrome://projetSpec/skin/icon.png");
 }
+window{
+	width:800px;
+	height:600px;
+}
+window.signin-process{
+	width:400px;
+	height:300px;
+}
