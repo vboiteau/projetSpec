@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+
+<?xml-stylesheet type="text/css" href="chrome://global/skin/" ?>
+<?xml-stylesheet type="text/css" href="chrome://projetSpec/skin/style.css"?>
+<!DOCTYPE overlay SYSTEM "chrome://projetSpec/locale/text.dtd">
+<window id="askUsername" title="&askUsername.title;" orient="vertical" xmlns:html="http://www.w3.org/1999/xhtml" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul" class="signin-process">
+	<script type="application/x-javascript" src="chrome://projetSpec/content/js/commun.js" />
+	<script type="application/x-javascript" src="chrome://projetSpec/content/recover/recover.js" />
+	<hbox>
+		<label control="username" value="&username.label;"/>
+		<textbox id="username"/>
+	</hbox>
+	<label id="username_error"/>
+	<button label="&continue.button;" oncommand="projetSpec.recover.continue(event);"/>
+</window>

@@ -26,7 +26,8 @@ projetSpec.signin={
 		openNewWindow("signup/signup.xul","Sign Up");
 	},
 	recoverPassword:function(e){
-
+		self.close();
+		openNewWindow("recover/askUsername.xul",'Ask for Username');
 	},
 	serverReturn:function(dataOut){
 		if(dataOut.success){

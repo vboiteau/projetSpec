@@ -5,6 +5,7 @@ if ("undefined" == typeof(projetSpec)) {
   var projetSpec = {};
 };
 var url='http://vboirob.com/projetSpec/extension/index.php';
+//var url='http://localhost/projetSpec/http/extension/index.php';
 var content="chrome://projetSpec/content/";
 function serverRequest(caller,action,dataIn){
 	let dataEnJSON=JSON.stringify(dataIn);

@@ -16,3 +16,8 @@
 <!ENTITY passwordConfirmation.label "Confirm you password:">
 <!ENTITY question.label "Question:">
 <!ENTITY answer.label "Answer:">
+
+<!ENTITY askUsername.title "Ask for username">
+<!ENTITY askQuestion.title "Ask me">
+<!ENTITY continue.button "Continue">
+<!ENTITY recover.button "Return my password">

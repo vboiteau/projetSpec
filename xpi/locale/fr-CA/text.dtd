@@ -16,3 +16,8 @@
 <!ENTITY passwordConfirmation.label "Confirmer votre mot de passe:">
 <!ENTITY question.label "Question:">
 <!ENTITY answer.label "Réponse:">
+
+<!ENTITY askUsername.title "Demande de nom d'utilisateur">
+<!ENTITY askQuestion.title "Demande la question">
+<!ENTITY continue.button "Continuer">
+<!ENTITY recover.button "Retourner-moi mon mot de passe">

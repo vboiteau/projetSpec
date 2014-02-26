@@ -22,6 +22,15 @@
 				case 'delete_account':
 					deleteAccount();
 					break;
+				case 'check_username':
+					checkUsername();
+					break;
+				case 'return_question':
+					returnQuestion();
+					break;
+				case 'return_password';
+					returnPassword();
+					break;
 			}
 		}
 	}
@@ -32,6 +41,28 @@
 			$GLOBALS['arrOut']['erreur']='aucune connexion';
 		}
 		encode();
+	}
+	function returnPassword(){
+		$username=$_SESSION['projetSpec']['recover']['username_exist'];
+		$question=$_SESSION['projetSpec']['recover']['question'];
+		$answer=$GLOBALS['arrIn']['answer'];
+		$query='SELECT password FROM t_user WHERE username=? AND question=? AND answer=?';
+		$result=$GLOBALS['objConnMySQLi']->prepare($query);
+		$result->bind_param('sss',$username,$question,$answer);
+		$result->execute();
+		$result->bind_result($password);
+		$arrPass=array();
+		while($result->fetch()){
+			 $arrPass[]=$password;
+		}
+		if(count($arrPass)==1){
+			$GLOBALS['arrOut']['password']=$arrPass[0];
+			unset($_SESSION['projetSpec']);
+		}else{
+			$GLOBALS['arrOut']['errPassword']='erreur';
+		}
+		encode();
+		$result->close();
 	}
 	function createAccount(){
 		$username=$GLOBALS['arrIn']['username'];
@@ -76,6 +107,34 @@
 		}else{
 			$GLOBALS['arrOut']['erreur']='error';
 		}
+		encode();
+	}
+	function checkUsername(){
+		$username=$GLOBALS['arrIn']['username'];
+		//echo "{'username':$username,'password':$password}";
+		$strQuery="SELECT question FROM t_user WHERE username=?";
+		$result=$GLOBALS['objConnMySQLi']->prepare($strQuery);
+		$result->bind_param('s',$username);
+		$result->execute();
+		$result->bind_result($question);
+		$arrQuestion=array();
+		while($result->fetch()){
+			$arrQuestion[]=$question;
+		}
+		
+		$result->close();
+		//echo "{\"num_rows\":$num_rows}";
+		if(count($arrQuestion)==1){
+			$_SESSION['projetSpec']['recover']['username_exist']=$username;
+			$_SESSION['projetSpec']['recover']['question']=$question;
+			$GLOBALS['arrOut']['unexist']=true;
+		}else{
+			$GLOBALS['arrOut']['errUnexist']='error';
+		}
+		encode();
+	}
+	function returnQuestion(){
+		$GLOBALS['arrOut']['question']=$_SESSION['projetSpec']['recover']['question'];
 		encode();
 	}
 	function signOut(){
