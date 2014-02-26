@@ -19,6 +19,9 @@
 				case 'create_account':
 					createAccount();
 					break;
+				case 'delete_account':
+					deleteAccount();
+					break;
 			}
 		}
 	}
@@ -44,6 +47,15 @@
 		$_SESSION['projetSpec']['user']=array('username'=>$username);
 		$GLOBALS["arrOut"]['success']='success';
 		encode();
+	}
+	function deleteAccount(){
+		$username=$_SESSION['projetSpec']['user']['username'];
+		$query='DELETE FROM t_user WHERE username=?';
+		$result=$GLOBALS['objConnMySQLi']->prepare($query);
+		$result->bind_param('s',$username);
+		$result->execute();
+		$result->close();
+		signOut();
 	}
 	function checkUser(){
 		$username=$GLOBALS['arrIn']['username'];
