@@ -16,6 +16,9 @@
 				case 'sign_out':
 					signOut();
 					break;
+				case 'create_account':
+					createAccount();
+					break;
 			}
 		}
 	}
@@ -25,6 +28,21 @@
 		}else{
 			$GLOBALS['arrOut']['erreur']='aucune connexion';
 		}
+		encode();
+	}
+	function createAccount(){
+		$username=$GLOBALS['arrIn']['username'];
+		$password=$GLOBALS['arrIn']['password'];
+		$question=$GLOBALS['arrIn']['question'];
+		$answer=$GLOBALS['arrIn']['answer'];
+		$date=date('Y-m-d H:i:s');
+		$query='INSERT INTO t_user (username, password, question, answer,creation_date) VALUES (?,?,?,?,?)';
+		$result=$GLOBALS['objConnMySQLi']->prepare($query);
+		$result->bind_param('sssss',$username,$password,$question,$answer,$date);
+		$result->execute();
+		$result->close();
+		$_SESSION['projetSpec']['user']=array('username'=>$username);
+		$GLOBALS["arrOut"]['success']='success';
 		encode();
 	}
 	function checkUser(){

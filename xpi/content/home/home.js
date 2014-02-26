@@ -1,7 +1,7 @@
 projetSpec.home={
 	init:function(e){
-		action='look_for_connection'
-		dataIn={};
+		let action='look_for_connection';
+		let dataIn={};
 		serverRequest(this,action,dataIn);
 	},
 	signout:function(e){
@@ -10,7 +10,9 @@ projetSpec.home={
 		serverRequest(this,action,dataIn);
 	},
 	deleteAccount:function(e){
-		alert(url);
+		action="delete_account";
+		dataIn={};
+		serverRequest(this,action,dataIn);
 	},
 	serverReturn:function(dataOut){
 		if(dataOut.erreur){

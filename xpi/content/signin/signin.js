@@ -2,19 +2,19 @@ projetSpec.signin={
 	singin:function(e){
 		let dataIn={};
 		let formFilled=true;
-		if(document.getElementById('username').value.length>0){
-			dataIn['username']=document.getElementById('username').value;
-			document.getElementById('username_error').value="";
+		if(i('username').length>0){
+			dataIn['username']=i('username');
+			si("username_error","");
 		}else{
 			formFilled=false;
-			document.getElementById('username_error').value="Entrer un nom d'utilistateur";
+			si('username_error',"Entrer un nom d'utilistateur");
 		}
-		if(document.getElementById('password').value.length>0){
-			dataIn['password']=document.getElementById('password').value;
-			document.getElementById('password_error').value="";
+		if(i('password').length>0){
+			dataIn['password']=i('password');
+			si('password_error',"");
 		}else{
 			formFilled=false;
-			document.getElementById('password_error').value="Entrer un mot de passe";
+			si('password_error',"Entrer un mot de passe");
 		}
 		if(formFilled==true){
 			let action='check_user';
@@ -34,7 +34,7 @@ projetSpec.signin={
 			openNewWindow("home/home.xul","Home");
 		}
 		if(dataOut.erreur){
-			document.getElementById("signin_error").value="You have no accout :( , but you can create one. :)"
+			i("signin_error","You have no accout :( , but you can create one. :)");
 		}
 	}
 };

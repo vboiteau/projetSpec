@@ -2,45 +2,63 @@ projetSpec.signup={
 	signup:function(e){
 		let formFilled=true;
 		let dataIn={};
-		if(document.getElementById('username').value.length>0){
-			dataIn['username']=document.getElementById('username').value;
-			document.getElementById('username_error').value="";
-		}else{
+		console.log(/[0-9a-zA-Z]{8,32}/.test(i('username')));
+		if(i('username').length==0){
 			formFilled=false;
-			document.getElementById('username_error').value="Entrer un nom d'utilistateur";
-		}if(document.getElementById('password').value.length>0){
-			dataIn['password']=document.getElementById('password').value;
-			document.getElementById('password_error').value="";
-		}else{
+			si("username_error","Entrer un nom d'utilisateur");
+		}else if(!/[0-9a-zA-Z]{8,32}/.test(i('username'))){
 			formFilled=false;
-			document.getElementById('password_error').value="Entrer un mot de passe";
-		}if(document.getElementById('passwordConfirmation').value==document.getElementById('password').value){
-			dataIn['passwordConfirmation']=document.getElementById('passwordConfirmation').value;
-			document.getElementById('passwordConfirmation_error').value="";
+			si('username_error',"Le nom d'utilisateur doit contenir 8 à 32 caractères et aucun caractères spéciaux.");
 		}else{
+			dataIn['username']=i('username');
+			si('username_error',"");
+		}if(i('password').length==0){
 			formFilled=false;
-			document.getElementById('passwordConfirmation_error').value="Les deux mots de passe doivent être identiques.";
-		}if(document.getElementById('question').value!=""){
-			dataIn['question']=document.getElementById('question').value;
-			document.getElementById('question_error').value="";
+			si('password_error',"Entrer un mot de passe");
+		}else if(!/[0-9a-zA-Z]{8,32}/.test(i('password'))){
+			formFilled=false;
+			si('password_error',"Le mot de passe doit contenir 8 à 32 caractères et aucun caractères spéciaux.");
 		}else{
+			dataIn['password']=i('password');
+			si('password_error',"");
+		}if(i('passwordConfirmation')!=i('password')){
 			formFilled=false;
-			document.getElementById('question_error').value="Entrer une question de sécurité.";
-		}if(document.getElementById('answer').value!=""){
-			dataIn['answer']=document.getElementById('answer').value;
-			document.getElementById('answer_error').value="";
+			si('passwordConfirmation_error',"Les deux mots de passe doivent être identiques.");
 		}else{
+			dataIn['passwordConfirmation']=i('passwordConfirmation');
+			i('passwordConfirmation_error',"");
+		}if(i('question')==""){
 			formFilled=false;
-			document.getElementById('answer_error').value="Les deux mots de passe doivent être identiques.";
+			si('question_error',"Entrer une question de sécurité.");
+		}else if(!/.{5,128}/.test(i('question'))){
+			formFilled=false;
+			si('question_error',"La question doit contenir 5 à 128 caractères.");
+		}else{
+			dataIn['question']=i('question');
+			si('question_error',"");
+		}if(i('answer')==""){
+			formFilled=false;
+			si('answer_error',"Entrer une réponse.");
+		}else if(!/.{2,32}/.test(i('answer'))){
+			formFilled=false;
+			si('answer_error',"La réponse doit contenir 2 à 32 caractères.");
+		}else{
+			dataIn['answer']=i('answer');
+			si('answer_error',"");
+		}
+		if(formFilled==true){
+			let action='create_account';
+			serverRequest(this,action,dataIn);
 		}
 	},
 	serverReturn:function(dataOut){
+		console.log(dataOut);
 		if(dataOut.success){
 			self.close();
 			openNewWindow("home/home.xul","Home");
 		}
 		if(dataOut.erreur){
-			document.getElementById("signin_error").value="You have no accout :( , but you can create one. :)"
+			si("signin_error","You have no accout :( , but you can create one. :)");
 		}
 	}
 };

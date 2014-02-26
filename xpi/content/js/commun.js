@@ -19,6 +19,7 @@ function serverRequest(caller,action,dataIn){
      	if(xmlRequest.status!=200&&xmlRequest.status!=304){
        		alert('HTTP error'+req.status);
      	}
+        console.log(xmlRequest.responseText);
      	dataOut=JSON.parse(xmlRequest.responseText);
         caller.serverReturn(dataOut);
     }
@@ -26,4 +27,10 @@ function serverRequest(caller,action,dataIn){
 }
 function openNewWindow(url,title){
     window.open(content+url,"projetSpec-"+title,"chrome,centerscreen");
+}
+function i(strInput){
+    return document.getElementById(strInput).value;
+}
+function si(strInput,valeur){
+    document.getElementById(strInput).value=valeur;
 }

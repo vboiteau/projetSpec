@@ -10,12 +10,12 @@
 		<label control="username" value="&username.label;"/>
 		<textbox id="username"/>
 	</hbox>
-	<label id="username_error"/>
+	<label id="username_error" value=""/>
 	<hbox>
 		<label control="password" value="&password.label;"/>
 		<textbox id="password"/>
 	</hbox>
-	<label id="password_error"/>
+	<label id="password_error" value=""/>
 	<hbox>
 		<label control="passwordConfirmation" value="&passwordConfirmation.label;"/>
 		<textbox id="passwordConfirmation"/>
@@ -25,12 +25,12 @@
 		<label control="question" value="&question.label;"/>
 		<textbox id="question"/>
 	</hbox>
-	<label id="question_error"/>
+	<label id="question_error" value=""/>
 	<hbox>
 		<label control="answer" value="&answer.label;"/>
 		<textbox id="answer"/>
 	</hbox>
-	<label id="answer_error"/>
-	<label id="signup_error"/>
+	<label id="answer_error" value=""/>
+	<label id="signup_error" value=""/>
 	<button label="&signup.button;" oncommand="projetSpec.signup.signup(event);"/>
 </window>
