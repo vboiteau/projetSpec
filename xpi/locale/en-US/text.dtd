@@ -21,3 +21,7 @@
 <!ENTITY askQuestion.title "Ask me">
 <!ENTITY continue.button "Continue">
 <!ENTITY recover.button "Return my password">
+
+<!ENTITY entry.title "Title: ">
+<!ENTITY entry.text "Text: ">
+<!ENTITY entry.type "Type of entry: ">

@@ -31,6 +31,12 @@
 				case 'return_password';
 					returnPassword();
 					break;
+				case 'return_entries';
+					returnEntries();
+					break;
+				case 'return_types':
+					returnTypes();
+					break;
 			}
 		}
 	}
@@ -69,7 +75,7 @@
 		$password=$GLOBALS['arrIn']['password'];
 		$question=$GLOBALS['arrIn']['question'];
 		$answer=$GLOBALS['arrIn']['answer'];
-		$date=date('Y-m-d H:i:s');
+		$date=returnDate();
 		$query='INSERT INTO t_user (username, password, question, answer,creation_date) VALUES (?,?,?,?,?)';
 		$result=$GLOBALS['objConnMySQLi']->prepare($query);
 		$result->bind_param('sssss',$username,$password,$question,$answer,$date);
@@ -137,10 +143,37 @@
 		$GLOBALS['arrOut']['question']=$_SESSION['projetSpec']['recover']['question'];
 		encode();
 	}
+	function returnTypes(){
+		$query='SELECT id_type, type_name FROM t_type ORDER BY type_name ASC';
+		$result=$GLOBALS['objConnMySQLi']->prepare($query);
+		$result->execute();
+		$result->bind_result($id,$name);
+		while($result->fetch()){
+			$GLOBALS['arrOut']['types'][$id]=$name;
+		}
+		$result->close();
+		encode();
+	}
 	function signOut(){
 		unset($_SESSION['projetSpec']);
 		$GLOBALS['arrOut']['erreur']='signOut';
 		encode();
+	}
+	function returnEntries(){
+		$username=$GLOBALS['arrIn']['username'];
+		$query='SELECT t_entry.id_entry, t_entry.title, t_entry.creation_date, t_entry.last_modification_date, t_type.type_name FROM t_entry INNER JOIN t_type ON t_type.id_type=t_entry.id_type INNER JOIN t_user ON t_user.id_user=t_entry.id_user WHERE t_user.username=? ORDER BY t_entry.last_modification_date DESC';
+		$result=$GLOBALS['objConnMySQLi']->prepare($query);
+		$result->bind_param('s',$username);
+		$result->execute();
+		$result->bind_result($idEntry,$title,$creationDate,$lastModificationDate,$typeName);
+		while($result->fetch()){
+			$GLOBALS['arrOut']['entries'][]=array('id_entry'=>$idEntry,'title'=>$title,'creation_date'=>$creationDate,'last_modification_date'=>$lastModificationDate,'type_name'=>$typeName);
+		}
+		$result->close();
+		encode();
+	}
+	function returnDate(){
+		return date('Y-m-d H:i:s');
 	}
 	function encode(){
 		$strJson=json_encode($GLOBALS['arrOut']);

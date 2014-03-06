@@ -5,6 +5,31 @@
 <window id="projetSpec-home" title="&home.title;" orient="vertical" xmlns:html="http://www.w3.org/1999/xhtml" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 	<script type="application/x-javascript" src="chrome://projetSpec/content/js/commun.js" />
 	<script type="application/x-javascript" src="chrome://projetSpec/content/home/home.js" />
-	<button label="&signout.button;" oncommand="projetSpec.home.signout(event);"/>
-	<button label="&delete.button;" oncommand="projetSpec.home.deleteAccount(event);"/>
+	<hbox>
+	<vbox>
+		<hbox>
+			<button label="&signout.button;" oncommand="projetSpec.home.signout(event);"/>
+			<button label="&delete.button;" oncommand="projetSpec.home.deleteAccount(event);"/>
+			<button label="add entry" oncommand="projetSpec.home.addEntry(event);"/>
+			<button label="modify entry" oncommand="projetSpec.home.modifyEntry(event);"/>
+		</hbox>
+		<hbox>
+			<label control='title' value='&entry.title;' />
+			<textbox id='title'/>
+		</hbox>
+		<hbox>
+			<label control='text' value='&entry.text;' />
+			<html:textarea id='text'/>
+		</hbox>
+		<hbox>
+			<label control='type' value='&entry.type;' />
+			<html:select id='type' name='type'> 
+			</html:select>
+		</hbox>
+	<html:div type='content'>
+	</html:div>
+	</vbox>
+	<vbox id="liste_liens">
+	</vbox>
+</hbox>
 </window>
