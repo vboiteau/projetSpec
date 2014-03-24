@@ -1,5 +1,6 @@
 projetSpec.home={
 	username:'',
+	active:0,
 	init:function(e){
 		let action='look_for_connection';
 		let dataIn={};
@@ -19,10 +20,9 @@ projetSpec.home={
 		serverRequest(this,action,dataIn);
 	},
 	loadEntry:function(e){
-		var unId=e.currentTarget.id;
-		console.log(unId);
+		this.active=e.currentTarget.id;
 		let action='load_entry';
-		let dataIn={username:this.username,id:unId};
+		let dataIn={username:this.username,id:this.active};
 		serverRequest(this,action,dataIn);
 	},
 	addEntry:function(e){
@@ -54,10 +54,37 @@ projetSpec.home={
 				serverRequest(this,action,dataIn);
 			}
 		}
-
 	},
 	modifyEntry:function(e){
-		
+		var e = document.getElementById("type");
+		var strUser = e.options[e.selectedIndex].value;
+		let formValide=true;
+		if(strUser=='1'){
+			if(!document.getElementById('title').value){
+				document.getElementById('title_error').value='Vous devez entrer un titre.';
+				formValide=false;
+			}else{
+				document.getElementById('title_error').value='';
+			}
+			if(!document.getElementById('text').value){
+				document.getElementById('text_error').value='Vous devez entrer un texte.';
+				formValide=false;
+			}
+			else{
+				document.getElementById('text_error').value='';
+			}
+			if(formValide){
+				let action='modify_entry';
+				let dataIn={
+					id:this.active,
+					username:this.username,
+					title:document.getElementById('title').value,
+					text:document.getElementById('text').value,
+					type:1
+				};
+				serverRequest(this,action,dataIn);
+			}
+		}
 	},
 	removeEntry:function(e){
 		var unId=e.currentTarget.id.substring(7);
@@ -81,10 +108,6 @@ projetSpec.home={
 		}else if(dataOut.username){
 			// console.log(dataOut.username);
 			this.username=dataOut.username;
-			let action='return_entries';
-			let dataIn={};
-			dataIn['username']=dataOut.username;
-			serverRequest(this,action,dataIn);
 		}else if(dataOut.entries){
 			document.getElementById('liste_liens').innerHTML='';
 			for(var key in dataOut.entries){
@@ -102,6 +125,10 @@ projetSpec.home={
 			document.getElementById('text').value=dataOut.load.text;
 			document.getElementById('type').options[dataOut.load.type];
 		}
+		let action='return_entries';
+		let dataIn={};
+		dataIn['username']=this.username;
+		serverRequest(this,action,dataIn);
 	},
 };
 window.addEventListener(

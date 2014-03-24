@@ -49,6 +49,9 @@
 				case 'load_entry':
 					loadEntry();
 					break;
+				case 'modify_entry':
+					modifyEntry();
+					break;
 			}
 		}
 	}
@@ -223,6 +226,19 @@
 		$GLOBALS['arrOut']['load']=$arrLoad;
 		$result->close();
 		encode();
+	}
+	function modifyEntry(){
+		$id_user=returnId();
+		$id_entry=(int)$GLOBALS['arrIn']['id'];
+		$title=$GLOBALS['arrIn']['title'];
+		$text=$GLOBALS['arrIn']['text'];
+		$type=$GLOBALS['arrIn']['type'];
+		$query="UPDATE t_entry SET title=?,last_modification_date=?,entry_text=?,id_type=? WHERE id_user=? AND id_entry=?";
+		$result=$GLOBALS['objConnMySQLi']->prepare($query);
+		$result->bind_param('ssssii',$title,returnDate(),$text,$type,$id_user,$id_entry);
+		$result->execute();
+		$result->close();
+		loadEntry();
 	}
 	function returnId(){
 		$username=$GLOBALS['arrIn']['username'];
