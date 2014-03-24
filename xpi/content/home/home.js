@@ -1,4 +1,5 @@
 projetSpec.home={
+	username:'',
 	init:function(e){
 		let action='look_for_connection';
 		let dataIn={};
@@ -18,23 +19,59 @@ projetSpec.home={
 		serverRequest(this,action,dataIn);
 	},
 	loadEntry:function(e){
-		console.log('Entry '+e.currentTarget.id);
+		var unId=e.currentTarget.id;
+		console.log(unId);
+		let action='load_entry';
+		let dataIn={username:this.username,id:unId};
+		serverRequest(this,action,dataIn);
 	},
 	addEntry:function(e){
-		console.log('add');
+		var e = document.getElementById("type");
+		var strUser = e.options[e.selectedIndex].value;
+		let formValide=true;
+		if(strUser=='1'){
+			if(!document.getElementById('title').value){
+				document.getElementById('title_error').value='Vous devez entrer un titre.';
+				formValide=false;
+			}else{
+				document.getElementById('title_error').value='';
+			}
+			if(!document.getElementById('text').value){
+				document.getElementById('text_error').value='Vous devez entrer un texte.';
+				formValide=false;
+			}
+			else{
+				document.getElementById('text_error').value='';
+			}
+			if(formValide){
+				let action='add_entry';
+				let dataIn={
+					username:this.username,
+					title:document.getElementById('title').value,
+					text:document.getElementById('text').value,
+					type:1
+				};
+				serverRequest(this,action,dataIn);
+			}
+		}
+
 	},
 	modifyEntry:function(e){
-		console.log('modify');
+		
 	},
 	removeEntry:function(e){
-		console.log('remove');
+		var unId=e.currentTarget.id.substring(7);
+		console.log(unId);
+		let action='remove_entry';
+		let dataIn={username:this.username,id:unId};
+		serverRequest(this,action,dataIn);
 	},
 	serverReturn:function(dataOut){
 		if(dataOut.erreur){
 			switch(dataOut.erreur){
 				case "aucune connexion":
-					console.log('no_connection');
 					openNewWindow('signin/signin.xul','SignIn');
+					self.close();
 					break;
 				case "signOut":
 					self.close();
@@ -43,20 +80,27 @@ projetSpec.home={
 			}
 		}else if(dataOut.username){
 			// console.log(dataOut.username);
+			this.username=dataOut.username;
 			let action='return_entries';
 			let dataIn={};
 			dataIn['username']=dataOut.username;
 			serverRequest(this,action,dataIn);
 		}else if(dataOut.entries){
+			document.getElementById('liste_liens').innerHTML='';
 			for(var key in dataOut.entries){
 				document.getElementById('liste_liens').innerHTML+='<hbox><button label="'+dataOut.entries[key].title+'" oncommand="projetSpec.home.loadEntry(event);" id="'+dataOut.entries[key].id_entry+'" class="entry"/><button label="supprimer" oncommand="projetSpec.home.removeEntry(event);" id="remove_'+dataOut.entries[key].id_entry+'" class="entry"/></hbox>';
 
 			}
 		}else if(dataOut.types){
+			console.log(dataOut.types);
 			for(var key in dataOut.types){
 				console.log(key);
 				document.getElementById('type').innerHTML+='<html:option value="'+key+'">'+dataOut.types[key]+'</html:option>';
 			}
+		}else if(dataOut.load){
+			document.getElementById('title').value=dataOut.load.title;
+			document.getElementById('text').value=dataOut.load.text;
+			document.getElementById('type').options[dataOut.load.type];
 		}
 	},
 };

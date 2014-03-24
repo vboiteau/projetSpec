@@ -1,5 +1,4 @@
 projetSpec.toolbar = {
-  
   open:function(e){
     let action='look_for_connection'
     let dataIn={};
@@ -23,7 +22,6 @@ function installButton()
     toolbar.setAttribute("currentset", newset);
     document.persist(toolbar.id, "currentset");
 }
- 
 function firstRun(extensions) 
 {
     var extension = extensions.get("projetSpec@vboirob.com"); 

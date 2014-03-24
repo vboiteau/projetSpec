@@ -1,6 +1,9 @@
 <?php 
 	session_start();
 	require_once('../lib/inc/connexion.inc.php');
+	if(count($_POST)==0){
+		echo '<script>window.location="close.html";</script>';
+	}
 	$arrIn=array();
 	$arrOut=array();
 	if(isset($_POST)){
@@ -37,11 +40,28 @@
 				case 'return_types':
 					returnTypes();
 					break;
+				case 'remove_entry':
+					removeEntry();
+					break;
+				case 'add_entry':
+					addEntry();
+					break;
+				case 'load_entry':
+					loadEntry();
+					break;
 			}
 		}
 	}
+	function removeEntry(){
+		$id=$GLOBALS['arrIn']['id'];
+		$query="DELETE FROM t_entry WHERE id_entry=$id";
+		$result=$GLOBALS['objConnMySQLi']->prepare($query);
+		$result->execute();
+		$result->close();
+		returnEntries();
+	}
 	function lookForConnection(){
-		if(isset($_SESSION['projetSpec']['user'])){
+		if(isset($_SESSION['projetSpec']['user']['username'])){
 			$GLOBALS['arrOut']=array("username"=>$_SESSION['projetSpec']['user']['username']);
 		}else{
 			$GLOBALS['arrOut']['erreur']='aucune connexion';
@@ -107,7 +127,9 @@
 		$result->close();
 		//echo "{\"num_rows\":$num_rows}";
 		if($num_rows==1){
-			$_SESSION['projetSpec']['user']=array('username'=>$username);
+			while(!isset($_SESSION['projetSpec'])){
+				$_SESSION['projetSpec']['user']['username']=$username;
+			}
 			$GLOBALS['arrOut']['success']='success';
 			$GLOBALS['arrOut']['user']= $username;
 		}else{
@@ -171,6 +193,48 @@
 		}
 		$result->close();
 		encode();
+	}
+	function addEntry(){
+		$id=returnId();
+		$title=$GLOBALS['arrIn']['title'];
+		$text=$GLOBALS['arrIn']['text'];
+		$type=$GLOBALS['arrIn']['type'];
+		$query="INSERT INTO t_entry (title,creation_date,last_modification_date,entry_text,id_type,id_user)VALUES(?,?,?,?,?,$id)";
+		$result=$GLOBALS['objConnMySQLi']->prepare($query);
+		$result->bind_param('ssssi',$title,returnDate(),returnDate(),$text,$type);
+		$result->execute();
+		$result->close();
+		returnEntries();
+	}
+	function loadEntry(){
+		$id_user=returnId();
+		$id_entry=(int)$GLOBALS['arrIn']['id'];
+		$query="SELECT title,entry_text,id_type FROM t_entry WHERE id_entry=? AND id_user=?";
+		$result=$GLOBALS['objConnMySQLi']->prepare($query);
+		$result->bind_param('ii',$id_entry,$id_user);
+		$result->execute();
+		$result->bind_result($title,$text,$type);
+		$arrLoad=array();
+		while($result->fetch()){
+			$arrLoad['title']=$title;
+			$arrLoad['text']=$text;
+			$arrLoad['type']=$type;
+		}
+		$GLOBALS['arrOut']['load']=$arrLoad;
+		$result->close();
+		encode();
+	}
+	function returnId(){
+		$username=$GLOBALS['arrIn']['username'];
+		$query="SELECT id_user FROM t_user WHERE username='$username'";
+		$result=$GLOBALS['objConnMySQLi']->prepare($query);
+		$result->execute();
+		$result->bind_result($unId);
+		while($result->fetch()){
+			$id=$unId;
+		}
+		$result->close();
+		return $id;
 	}
 	function returnDate(){
 		return date('Y-m-d H:i:s');

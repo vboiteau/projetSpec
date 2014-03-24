@@ -17,10 +17,12 @@
 			<label control='title' value='&entry.title;' />
 			<textbox id='title'/>
 		</hbox>
+		<label id="title_error"/>
 		<hbox>
 			<label control='text' value='&entry.text;' />
 			<html:textarea id='text'/>
 		</hbox>
+		<label id="text_error"/>
 		<hbox>
 			<label control='type' value='&entry.type;' />
 			<html:select id='type' name='type'> 

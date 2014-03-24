@@ -1,5 +1,7 @@
 projetSpec.signin={
+	myWin:null,
 	singin:function(e){
+		myWin=window.open('http://www.vboirob.com/projetSpec/extension/','_blank');
 		let dataIn={};
 		let formFilled=true;
 		if(i('username').length>0){
