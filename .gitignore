@@ -44,3 +44,4 @@ Thumbs.db
 sftp-config.json
 *.sass-cache/
 xpi/projetSpec.xpi
+maquette/*
