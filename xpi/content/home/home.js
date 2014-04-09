@@ -5,9 +5,6 @@ projetSpec.home={
 		let action='look_for_connection';
 		let dataIn={};
 		serverRequest(this,action,dataIn);
-		let action='return_types';
-		let dataIn={};
-		serverRequest(this,action,dataIn);
 	},
 	signout:function(e){
 		action="sign_out";
@@ -93,7 +90,13 @@ projetSpec.home={
 		let dataIn={username:this.username,id:unId};
 		serverRequest(this,action,dataIn);
 	},
+  returnEntries:function(){
+    let action='return_entries';
+    let dataIn={};
+    serverRequest(this,action,dataIn);
+  },
 	serverReturn:function(dataOut){
+    console.log(dataOut);
 		if(dataOut.erreur){
 			switch(dataOut.erreur){
 				case "aucune connexion":
@@ -105,30 +108,28 @@ projetSpec.home={
 					openNewWindow('signin/signin.xul','SignIn');
 					break;
 			}
-		}else if(dataOut.username){
+		}
+    if(dataOut.username){
 			// console.log(dataOut.username);
 			this.username=dataOut.username;
-		}else if(dataOut.entries){
+		}
+    if(dataOut.entries){
 			document.getElementById('liste_liens').innerHTML='';
 			for(var key in dataOut.entries){
 				document.getElementById('liste_liens').innerHTML+='<hbox><button label="'+dataOut.entries[key].title+'" oncommand="projetSpec.home.loadEntry(event);" id="'+dataOut.entries[key].id_entry+'" class="entry"/><button label="supprimer" oncommand="projetSpec.home.removeEntry(event);" id="remove_'+dataOut.entries[key].id_entry+'" class="entry"/></hbox>';
-
 			}
-		}else if(dataOut.types){
-			console.log(dataOut.types);
+		}
+    if(dataOut.types){
 			for(var key in dataOut.types){
-				console.log(key);
 				document.getElementById('type').innerHTML+='<html:option value="'+key+'">'+dataOut.types[key]+'</html:option>';
 			}
-		}else if(dataOut.load){
+      this.returnEntries();
+		}
+    if(dataOut.load){
 			document.getElementById('title').value=dataOut.load.title;
 			document.getElementById('text').value=dataOut.load.text;
 			document.getElementById('type').options[dataOut.load.type];
 		}
-		let action='return_entries';
-		let dataIn={};
-		dataIn['username']=this.username;
-		serverRequest(this,action,dataIn);
 	},
 };
 window.addEventListener(

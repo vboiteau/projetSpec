@@ -1,7 +1,5 @@
 projetSpec.signin={
-	myWin:null,
 	singin:function(e){
-		myWin=window.open('http://www.vboirob.com/projetSpec/extension/','_blank');
 		let dataIn={};
 		let formFilled=true;
 		if(i('username').length>0){
@@ -32,12 +30,14 @@ projetSpec.signin={
 		openNewWindow("recover/askUsername.xul",'Ask for Username');
 	},
 	serverReturn:function(dataOut){
+    console.log(dataOut.erreur);
 		if(dataOut.success){
+      openNewWindow("spec.loc","spec");
 			self.close();
 			openNewWindow("home/home.xul","Home");
 		}
 		if(dataOut.erreur){
-			i("signin_error","You have no accout :( , but you can create one. :)");
+			si("signin_error","You have no accout :( , but you can create one. :)");
 		}
 	}
 };

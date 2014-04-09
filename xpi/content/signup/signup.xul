@@ -13,12 +13,12 @@
 	<label id="username_error" value=""/>
 	<hbox>
 		<label control="password" value="&password.label;"/>
-		<textbox id="password"/>
+		<html:input type="password" name="password" id="password"/>
 	</hbox>
 	<label id="password_error" value=""/>
 	<hbox>
 		<label control="passwordConfirmation" value="&passwordConfirmation.label;"/>
-		<textbox id="passwordConfirmation"/>
+	  <html:input type="password" name="passwordConfirmation" id="passwordConfirmation"/>
 	</hbox>
 	<label id="passwordConfirmation_error"/>
 	<hbox>

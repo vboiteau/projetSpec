@@ -4,8 +4,7 @@
 if ("undefined" == typeof(projetSpec)) {
   var projetSpec = {};
 };
-var url='http://vboirob.com/projetSpec/extension/index.php';
-//var url='http://localhost/projetSpec/http/extension/index.php';
+var url='http://spec.loc/extension/index.php';
 var content="chrome://projetSpec/content/";
 function serverRequest(caller,action,dataIn){
 	let dataEnJSON=JSON.stringify(dataIn);
@@ -21,7 +20,7 @@ function serverRequest(caller,action,dataIn){
        		alert('HTTP error'+req.status);
      	}
         console.log(xmlRequest.responseText);
-     	dataOut=JSON.parse(xmlRequest.responseText);
+     	  dataOut=JSON.parse(xmlRequest.responseText);
         caller.serverReturn(dataOut);
     }
     xmlRequest.send(strPost);

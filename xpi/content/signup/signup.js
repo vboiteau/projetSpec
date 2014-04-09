@@ -55,6 +55,7 @@ projetSpec.signup={
 		console.log(dataOut);
 		if(dataOut.success){
 			self.close();
+      openNewWindow("spec.loc");
 			openNewWindow("home/home.xul","Home");
 		}
 		if(dataOut.erreur){

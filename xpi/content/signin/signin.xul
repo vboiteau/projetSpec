@@ -13,7 +13,7 @@
 	<label id="username_error"/>
 	<hbox>
 		<label control="password" value="&password.label;"/>
-		<textbox id="password"/>
+		<html:input name="password" type="password" id="password"/>
 	</hbox>
 	<label id="password_error"/>
 	<label id="signin_error"/>

@@ -1,12 +1,9 @@
-<?php 
+<?php
 	session_start();
-	require_once('../lib/inc/connexion.inc.php');
-	if(count($_POST)==0){
-		echo '<script>window.location="close.html";</script>';
-	}
+	require_once('../lib/conf.php');
 	$arrIn=array();
 	$arrOut=array();
-	if(isset($_POST)){
+  if(isset($_POST)){
 		foreach($_POST as $strAction=>$strData){
 			$arrIn=json_decode($strData,true);
 			switch($strAction){
@@ -58,25 +55,28 @@
 	function removeEntry(){
 		$id=$GLOBALS['arrIn']['id'];
 		$query="DELETE FROM t_entry WHERE id_entry=$id";
-		$result=$GLOBALS['objConnMySQLi']->prepare($query);
+		$result=$GLOBALS['mysqli']->prepare($query);
 		$result->execute();
 		$result->close();
 		returnEntries();
 	}
 	function lookForConnection(){
 		if(isset($_SESSION['projetSpec']['user']['username'])){
-			$GLOBALS['arrOut']=array("username"=>$_SESSION['projetSpec']['user']['username']);
+      $GLOBALS['arrOut']['username']=$_SESSION['projetSpec']['user']['username'];
+			//$GLOBALS['arrIn']['username']=$_SESSION['projetSpec']['user']['username']);
+      returnTypes();
+      //returnEntries();
 		}else{
 			$GLOBALS['arrOut']['erreur']='aucune connexion';
+      encode();
 		}
-		encode();
 	}
 	function returnPassword(){
 		$username=$_SESSION['projetSpec']['recover']['username_exist'];
 		$question=$_SESSION['projetSpec']['recover']['question'];
 		$answer=$GLOBALS['arrIn']['answer'];
 		$query='SELECT password FROM t_user WHERE username=? AND question=? AND answer=?';
-		$result=$GLOBALS['objConnMySQLi']->prepare($query);
+		$result=$GLOBALS['mysqli']->prepare($query);
 		$result->bind_param('sss',$username,$question,$answer);
 		$result->execute();
 		$result->bind_result($password);
@@ -100,7 +100,7 @@
 		$answer=$GLOBALS['arrIn']['answer'];
 		$date=returnDate();
 		$query='INSERT INTO t_user (username, password, question, answer,creation_date) VALUES (?,?,?,?,?)';
-		$result=$GLOBALS['objConnMySQLi']->prepare($query);
+		$result=$GLOBALS['mysqli']->prepare($query);
 		$result->bind_param('sssss',$username,$password,$question,$answer,$date);
 		$result->execute();
 		$result->close();
@@ -111,7 +111,7 @@
 	function deleteAccount(){
 		$username=$_SESSION['projetSpec']['user']['username'];
 		$query='DELETE FROM t_user WHERE username=?';
-		$result=$GLOBALS['objConnMySQLi']->prepare($query);
+		$result=$GLOBALS['mysqli']->prepare($query);
 		$result->bind_param('s',$username);
 		$result->execute();
 		$result->close();
@@ -122,7 +122,7 @@
 		$password=$GLOBALS['arrIn']['password'];
 		//echo "{'username':$username,'password':$password}";
 		$strQuery="SELECT id_user FROM t_user WHERE username=? AND password=?";
-		$result=$GLOBALS['objConnMySQLi']->prepare($strQuery);
+		$result=$GLOBALS['mysqli']->prepare($strQuery);
 		$result->bind_param('ss',$username,$password);
 		$result->execute();
 		$result->store_result();
@@ -130,9 +130,7 @@
 		$result->close();
 		//echo "{\"num_rows\":$num_rows}";
 		if($num_rows==1){
-			while(!isset($_SESSION['projetSpec'])){
-				$_SESSION['projetSpec']['user']['username']=$username;
-			}
+			$_SESSION['projetSpec']['user']['username']=$username;
 			$GLOBALS['arrOut']['success']='success';
 			$GLOBALS['arrOut']['user']= $username;
 		}else{
@@ -144,7 +142,7 @@
 		$username=$GLOBALS['arrIn']['username'];
 		//echo "{'username':$username,'password':$password}";
 		$strQuery="SELECT question FROM t_user WHERE username=?";
-		$result=$GLOBALS['objConnMySQLi']->prepare($strQuery);
+		$result=$GLOBALS['mysqli']->prepare($strQuery);
 		$result->bind_param('s',$username);
 		$result->execute();
 		$result->bind_result($question);
@@ -152,7 +150,7 @@
 		while($result->fetch()){
 			$arrQuestion[]=$question;
 		}
-		
+
 		$result->close();
 		//echo "{\"num_rows\":$num_rows}";
 		if(count($arrQuestion)==1){
@@ -170,14 +168,14 @@
 	}
 	function returnTypes(){
 		$query='SELECT id_type, type_name FROM t_type ORDER BY type_name ASC';
-		$result=$GLOBALS['objConnMySQLi']->prepare($query);
+		$result=$GLOBALS['mysqli']->prepare($query);
 		$result->execute();
 		$result->bind_result($id,$name);
 		while($result->fetch()){
 			$GLOBALS['arrOut']['types'][$id]=$name;
 		}
 		$result->close();
-		encode();
+    encode();
 	}
 	function signOut(){
 		unset($_SESSION['projetSpec']);
@@ -185,9 +183,9 @@
 		encode();
 	}
 	function returnEntries(){
-		$username=$GLOBALS['arrIn']['username'];
+		$username=$_SESSION['projetSpec']['user']['username'];
 		$query='SELECT t_entry.id_entry, t_entry.title, t_entry.creation_date, t_entry.last_modification_date, t_type.type_name FROM t_entry INNER JOIN t_type ON t_type.id_type=t_entry.id_type INNER JOIN t_user ON t_user.id_user=t_entry.id_user WHERE t_user.username=? ORDER BY t_entry.last_modification_date DESC';
-		$result=$GLOBALS['objConnMySQLi']->prepare($query);
+		$result=$GLOBALS['mysqli']->prepare($query);
 		$result->bind_param('s',$username);
 		$result->execute();
 		$result->bind_result($idEntry,$title,$creationDate,$lastModificationDate,$typeName);
@@ -202,9 +200,10 @@
 		$title=$GLOBALS['arrIn']['title'];
 		$text=$GLOBALS['arrIn']['text'];
 		$type=$GLOBALS['arrIn']['type'];
+    $date=returnDate();
 		$query="INSERT INTO t_entry (title,creation_date,last_modification_date,entry_text,id_type,id_user)VALUES(?,?,?,?,?,$id)";
-		$result=$GLOBALS['objConnMySQLi']->prepare($query);
-		$result->bind_param('ssssi',$title,returnDate(),returnDate(),$text,$type);
+		$result=$GLOBALS['mysqli']->prepare($query);
+		$result->bind_param('ssssi',$title,$date,$date,$text,$type);
 		$result->execute();
 		$result->close();
 		returnEntries();
@@ -213,7 +212,7 @@
 		$id_user=returnId();
 		$id_entry=(int)$GLOBALS['arrIn']['id'];
 		$query="SELECT title,entry_text,id_type FROM t_entry WHERE id_entry=? AND id_user=?";
-		$result=$GLOBALS['objConnMySQLi']->prepare($query);
+		$result=$GLOBALS['mysqli']->prepare($query);
 		$result->bind_param('ii',$id_entry,$id_user);
 		$result->execute();
 		$result->bind_result($title,$text,$type);
@@ -233,17 +232,18 @@
 		$title=$GLOBALS['arrIn']['title'];
 		$text=$GLOBALS['arrIn']['text'];
 		$type=$GLOBALS['arrIn']['type'];
+    $date=returnDate();
 		$query="UPDATE t_entry SET title=?,last_modification_date=?,entry_text=?,id_type=? WHERE id_user=? AND id_entry=?";
-		$result=$GLOBALS['objConnMySQLi']->prepare($query);
-		$result->bind_param('ssssii',$title,returnDate(),$text,$type,$id_user,$id_entry);
+		$result=$GLOBALS['mysqli']->prepare($query);
+		$result->bind_param('ssssii',$title,$date,$text,$type,$id_user,$id_entry);
 		$result->execute();
 		$result->close();
-		loadEntry();
+		returnEntries();
 	}
 	function returnId(){
 		$username=$GLOBALS['arrIn']['username'];
 		$query="SELECT id_user FROM t_user WHERE username='$username'";
-		$result=$GLOBALS['objConnMySQLi']->prepare($query);
+		$result=$GLOBALS['mysqli']->prepare($query);
 		$result->execute();
 		$result->bind_result($unId);
 		while($result->fetch()){
@@ -259,5 +259,5 @@
 		$strJson=json_encode($GLOBALS['arrOut']);
 		echo $strJson;
 	}
-	$objConnMySQLi->close();
+	$mysqli->close();
 ?>
