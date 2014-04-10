@@ -49,9 +49,22 @@
 				case 'modify_entry':
 					modifyEntry();
 					break;
+        case 'choose_cat':
+          chooseCat();
+          break;
 			}
 		}
 	}
+  function chooseCat(){
+    $cat=$GLOBALS['arrIn']['cat'];
+    $query="INSERT INTO t_categorie(categorie_name) VALUES (?)";
+    $result=$GLOBALS['mysqli']->prepare($query);
+    $result->bind_param('s',$cat);
+    $result->execute();
+    $GLOBALS['arrOut']['newCatId']=$result->insert_id;
+    $result->close();
+    encode();
+  }
 	function removeEntry(){
 		$id=$GLOBALS['arrIn']['id'];
 		$query="DELETE FROM t_entry WHERE id_entry=$id";

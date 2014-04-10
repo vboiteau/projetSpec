@@ -52,6 +52,14 @@ projetSpec.home={
 			}
 		}
 	},
+  chooseCat:function(e){
+    let action='choose_cat';
+    let dataIn={cat:document.getElementById('cat').value};
+    serverRequest(this,action,dataIn);
+  },
+  chargeCat:function(e){
+    console.log('charge');
+  },
 	modifyEntry:function(e){
 		var e = document.getElementById("type");
 		var strUser = e.options[e.selectedIndex].value;

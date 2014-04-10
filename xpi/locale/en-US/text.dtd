@@ -25,3 +25,4 @@
 <!ENTITY entry.title "Title: ">
 <!ENTITY entry.text "Text: ">
 <!ENTITY entry.type "Type of entry: ">
+<!ENTITY entry.cat "Category of entry: ">

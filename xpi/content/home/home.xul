@@ -25,9 +25,14 @@
 		<label id="text_error"/>
 		<hbox>
 			<label control='type' value='&entry.type;' />
-			<html:select id='type' name='type'> 
+			<html:select id='type' name='type'>
 			</html:select>
 		</hbox>
+    <label id="type_error"/>
+    <hbox>
+      <label control='cat' value='&entry.cat;' />
+      <textbox id='cat' onkeyup='projetSpec.home.chargeCat(event);' onblur='projetSpec.home.chooseCat(event);'/>
+    </hbox>
 	<html:div type='content'>
 	</html:div>
 	</vbox>
