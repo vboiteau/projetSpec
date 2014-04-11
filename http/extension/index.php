@@ -52,9 +52,25 @@
         case 'choose_cat':
           chooseCat();
           break;
+        case 'return_cat';
+          returnCat();
+          break;
 			}
 		}
 	}
+  function returnCat(){
+    $idCat=$GLOBALS['arrIn']['id'];
+    $query="SELECT categorie_name FROM t_categorie WHERE id_categorie=?";
+    $result=$GLOBALS['mysqli']->prepare($query);
+    $result->bind_param('i',$idCat);
+    $result->execute();
+    $result->bind_result($catName);
+    while($result->fetch()){
+      $GLOBALS['arrOut']['categorie_name']=$catName;
+    }
+    $result->close();
+    encode();
+  }
   function chooseCat(){
     $cat=$GLOBALS['arrIn']['cat'];
     $query="INSERT INTO t_categorie(categorie_name) VALUES (?)";
@@ -62,6 +78,23 @@
     $result->bind_param('s',$cat);
     $result->execute();
     $GLOBALS['arrOut']['newCatId']=$result->insert_id;
+    $result->close();
+    if($GLOBALS['arrOut']['newCatId']){
+      encode();
+    }else{
+      returnIdCat();
+    }
+  }
+  function returnIdCat(){
+    $cat=$GLOBALS['arrIn']['cat'];
+    $query="SELECT id_categorie FROM t_categorie WHERE categorie_name=?";
+    $result=$GLOBALS['mysqli']->prepare($query);
+    $result->bind_param('s',$cat);
+    $result->execute();
+    $result->bind_result($id);
+    while($result->fetch()){
+      $GLOBALS['arrOut']['newCatId']=$id;
+    }
     $result->close();
     encode();
   }
@@ -212,28 +245,32 @@
 		$id=returnId();
 		$title=$GLOBALS['arrIn']['title'];
 		$text=$GLOBALS['arrIn']['text'];
-		$type=$GLOBALS['arrIn']['type'];
+    $type=$GLOBALS['arrIn']['type'];
+		$idCat=$GLOBALS['arrIn']['id_categorie'];
     $date=returnDate();
-		$query="INSERT INTO t_entry (title,creation_date,last_modification_date,entry_text,id_type,id_user)VALUES(?,?,?,?,?,$id)";
+		$query="INSERT INTO t_entry (title,creation_date,last_modification_date,entry_text,id_type,id_user,id_categorie)VALUES(?,?,?,?,?,?,?)";
 		$result=$GLOBALS['mysqli']->prepare($query);
-		$result->bind_param('ssssi',$title,$date,$date,$text,$type);
+		$result->bind_param('ssssiii',$title,$date,$date,$text,$type,$id,$idCat);
 		$result->execute();
 		$result->close();
+    $GLOBALS['arrOut']['id_entry']=$result->insert_id;
 		returnEntries();
 	}
 	function loadEntry(){
 		$id_user=returnId();
 		$id_entry=(int)$GLOBALS['arrIn']['id'];
-		$query="SELECT title,entry_text,id_type FROM t_entry WHERE id_entry=? AND id_user=?";
+		$query="SELECT id_entry,title,entry_text,id_type,id_categorie FROM t_entry WHERE id_entry=? AND id_user=?";
 		$result=$GLOBALS['mysqli']->prepare($query);
 		$result->bind_param('ii',$id_entry,$id_user);
 		$result->execute();
-		$result->bind_result($title,$text,$type);
+		$result->bind_result($id,$title,$text,$type, $idCat);
 		$arrLoad=array();
 		while($result->fetch()){
+      $arrLoad['id_entry']=$id;
 			$arrLoad['title']=$title;
 			$arrLoad['text']=$text;
 			$arrLoad['type']=$type;
+      $arrLoad['id_categorie']=$idCat;
 		}
 		$GLOBALS['arrOut']['load']=$arrLoad;
 		$result->close();
@@ -245,10 +282,11 @@
 		$title=$GLOBALS['arrIn']['title'];
 		$text=$GLOBALS['arrIn']['text'];
 		$type=$GLOBALS['arrIn']['type'];
+    $catId=$GLOBALS['arrIn']['id_categorie'];
     $date=returnDate();
-		$query="UPDATE t_entry SET title=?,last_modification_date=?,entry_text=?,id_type=? WHERE id_user=? AND id_entry=?";
+		$query="UPDATE t_entry SET title=?,last_modification_date=?,entry_text=?,id_type=?,id_categorie=? WHERE id_user=? AND id_entry=?";
 		$result=$GLOBALS['mysqli']->prepare($query);
-		$result->bind_param('ssssii',$title,$date,$text,$type,$id_user,$id_entry);
+		$result->bind_param('ssssiii',$title,$date,$text,$type,$catId,$id_user,$id_entry);
 		$result->execute();
 		$result->close();
 		returnEntries();

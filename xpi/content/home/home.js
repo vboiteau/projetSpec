@@ -46,7 +46,8 @@ projetSpec.home={
 					username:this.username,
 					title:document.getElementById('title').value,
 					text:document.getElementById('text').value,
-					type:1
+					type:1,
+          id_categorie:document.getElementById('idCat').value
 				};
 				serverRequest(this,action,dataIn);
 			}
@@ -58,7 +59,9 @@ projetSpec.home={
     serverRequest(this,action,dataIn);
   },
   chargeCat:function(e){
-    console.log('charge');
+    let action='search_cat';
+    let dataIn={cat:document.getElementById('cat').value};
+    serverRequest(this,action,dataIn);
   },
 	modifyEntry:function(e){
 		var e = document.getElementById("type");
@@ -85,7 +88,8 @@ projetSpec.home={
 					username:this.username,
 					title:document.getElementById('title').value,
 					text:document.getElementById('text').value,
-					type:1
+					type:1,
+          id_categorie:document.getElementById('idCat').value
 				};
 				serverRequest(this,action,dataIn);
 			}
@@ -104,7 +108,6 @@ projetSpec.home={
     serverRequest(this,action,dataIn);
   },
 	serverReturn:function(dataOut){
-    console.log(dataOut);
 		if(dataOut.erreur){
 			switch(dataOut.erreur){
 				case "aucune connexion":
@@ -118,7 +121,6 @@ projetSpec.home={
 			}
 		}
     if(dataOut.username){
-			// console.log(dataOut.username);
 			this.username=dataOut.username;
 		}
     if(dataOut.entries){
@@ -137,7 +139,30 @@ projetSpec.home={
 			document.getElementById('title').value=dataOut.load.title;
 			document.getElementById('text').value=dataOut.load.text;
 			document.getElementById('type').options[dataOut.load.type];
+      if(!dataOut.load.id_categorie){
+        document.getElementById('cat').value='';
+        document.getElementById('idCat').value='';
+      }else{
+        document.getElementById('idCat').value=dataOut.load.id_categorie;
+        let action='return_cat';
+        let dataIn={id:dataOut.load.id_categorie};
+        serverRequest(this,action,dataIn);
+      }
 		}
+    if(dataOut.categorie_name){
+      document.getElementById('cat').value=dataOut.categorie_name;
+    }
+    if(dataOut.newCatId||dataOut.newCatId!=0){
+      document.getElementById('idCat').value=dataOut.newCatId;
+    }
+    if(dataOut.id_entry){
+      document.getElementById('idEntry').value=dataOut.id_entry;
+    }else if(dataOut.load.id_entry){
+      document.getElementById('idEntry').value=dataOut.load.id_entry;
+    }
+    if(dataOut.search_result_cat){
+      console.log(dataOut.search_result_cat);
+    }
 	},
 };
 window.addEventListener(

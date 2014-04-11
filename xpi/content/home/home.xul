@@ -6,6 +6,7 @@
 	<script type="application/x-javascript" src="chrome://projetSpec/content/js/commun.js" />
 	<script type="application/x-javascript" src="chrome://projetSpec/content/home/home.js" />
 	<hbox>
+    <html:input type='hidden' id='idEntry'/>
 	<vbox>
 		<hbox>
 			<button label="&signout.button;" oncommand="projetSpec.home.signout(event);"/>
@@ -32,6 +33,7 @@
     <hbox>
       <label control='cat' value='&entry.cat;' />
       <textbox id='cat' onkeyup='projetSpec.home.chargeCat(event);' onblur='projetSpec.home.chooseCat(event);'/>
+      <html:input type='hidden' id='idCat'/>
     </hbox>
 	<html:div type='content'>
 	</html:div>
