@@ -7,7 +7,7 @@
     <em:id>projetSpec@vboirob.com</em:id>
     <em:name>Projet de spécialisation</em:name>
     <em:description>Extension pour Mozilla Firefox qui permet de storer des notes et fichiers sur un serveur accèssible à partir plusieurs instances du navigateurs.</em:description>
-    <em:version>0.2</em:version>
+    <em:version>0.3</em:version>
     <em:creator>Vincent Boiteau-Robert</em:creator>
     <em:homepageURL>http://vboirob.com/projetSpec/</em:homepageURL>
     <em:type>2</em:type>

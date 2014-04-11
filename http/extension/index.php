@@ -55,6 +55,9 @@
         case 'return_cat';
           returnCat();
           break;
+        case 'search_cat':
+          searchCat();
+          break;
 			}
 		}
 	}
@@ -252,8 +255,8 @@
 		$result=$GLOBALS['mysqli']->prepare($query);
 		$result->bind_param('ssssiii',$title,$date,$date,$text,$type,$id,$idCat);
 		$result->execute();
-		$result->close();
     $GLOBALS['arrOut']['id_entry']=$result->insert_id;
+    $result->close();
 		returnEntries();
 	}
 	function loadEntry(){
@@ -306,6 +309,22 @@
 	function returnDate(){
 		return date('Y-m-d H:i:s');
 	}
+  function searchCat(){
+    $str='%'.$GLOBALS['arrIn']['cat'].'%';
+    $query="SELECT id_categorie,categorie_name FROM t_categorie WHERE categorie_name LIKE ?";
+    $result=$GLOBALS['mysqli']->prepare($query);
+    $result->bind_param('s',$str);
+    $result->execute();
+    $result->bind_result($id,$name);
+    while($result->fetch()){
+      $GLOBALS['arrOut']['search_result_cat'][$id]=array('id'=>$id,'name'=>$name);
+    }
+    $result->close();
+    if(!isset($GLOBALS['arrOut']['search_result_cat'])){
+      $GLOBALS['arrOut']['erreur']='noCat';
+    }
+    encode();
+  }
 	function encode(){
 		$strJson=json_encode($GLOBALS['arrOut']);
 		echo $strJson;

@@ -35,6 +35,9 @@
       <textbox id='cat' onkeyup='projetSpec.home.chargeCat(event);' onblur='projetSpec.home.chooseCat(event);'/>
       <html:input type='hidden' id='idCat'/>
     </hbox>
+    <hbox id='search_result_cat'>
+
+    </hbox>
 	<html:div type='content'>
 	</html:div>
 	</vbox>
