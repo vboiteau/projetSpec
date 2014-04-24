@@ -26,3 +26,4 @@
 <!ENTITY entry.text "Text: ">
 <!ENTITY entry.type "Type of entry: ">
 <!ENTITY entry.cat "Category of entry: ">
+<!ENTITY entry.lab "Labels of entry: ">

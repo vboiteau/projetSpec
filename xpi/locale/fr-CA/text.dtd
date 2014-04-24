@@ -25,3 +25,4 @@
 <!ENTITY entry.text "Texte: ">
 <!ENTITY entry.type "Type de l'entrée: ">
 <!ENTITY entry.cat "Catégorie de l'entrée: ">
+<!ENTITY entry.lab "Libellés de l'entrée: ">

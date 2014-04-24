@@ -16,17 +16,17 @@
 		</hbox>
 		<hbox>
 			<label control='title' value='&entry.title;' />
-			<textbox id='title'/>
+			<textbox id='title' onblur="projetSpec.home.addEntry(event);"/>
 		</hbox>
 		<label id="title_error"/>
 		<hbox>
 			<label control='text' value='&entry.text;' />
-			<html:textarea id='text'/>
+			<html:textarea id='text' onblur="projetSpec.home.modifyEntry(event);"/>
 		</hbox>
 		<label id="text_error"/>
 		<hbox>
 			<label control='type' value='&entry.type;' />
-			<html:select id='type' name='type'>
+			<html:select id='type' onchange="projetSpec.home.modifyEntry(event);" name='type'>
 			</html:select>
 		</hbox>
     <label id="type_error"/>
@@ -36,6 +36,14 @@
       <html:input type='hidden' id='idCat'/>
     </hbox>
     <hbox id='search_result_cat'>
+
+    </hbox>
+    <hbox>
+      <label control='lab' value='&entry.lab;' />
+      <textbox id='lab' onkeyup='projetSpec.home.searchLab(event);'/>
+    </hbox>
+    <listbox id='lab_search'></listbox>
+    <hbox id='lab_list'>
 
     </hbox>
 	<html:div type='content'>

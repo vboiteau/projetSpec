@@ -5,6 +5,7 @@ projetSpec.home={
 		let action='look_for_connection';
 		let dataIn={};
 		serverRequest(this,action,dataIn);
+    document.getElementById('title').focus();
 	},
 	signout:function(e){
 		action="sign_out";
@@ -28,17 +29,7 @@ projetSpec.home={
 		let formValide=true;
 		if(strUser=='1'){
 			if(!document.getElementById('title').value){
-				document.getElementById('title_error').value='Vous devez entrer un titre.';
-				formValide=false;
-			}else{
-				document.getElementById('title_error').value='';
-			}
-			if(!document.getElementById('text').value){
-				document.getElementById('text_error').value='Vous devez entrer un texte.';
-				formValide=false;
-			}
-			else{
-				document.getElementById('text_error').value='';
+				document.getElementById('title').value='default value';
 			}
 			if(formValide){
 				let action='add_entry';
@@ -59,9 +50,15 @@ projetSpec.home={
     serverRequest(this,action,dataIn);
   },
   chargeCat:function(e){
-    let action='search_cat';
-    let dataIn={cat:document.getElementById('cat').value};
-    serverRequest(this,action,dataIn);
+    if(document.getElementById('cat').value!=""){
+      console.log('string');
+      let action='search_cat';
+      let dataIn={cat:document.getElementById('cat').value};
+      serverRequest(this,action,dataIn);
+    }else{
+      console.log('no string');
+      document.getElementById('search_result_cat').innerHTML='';
+    }
   },
 	modifyEntry:function(e){
 		var e = document.getElementById("type");
@@ -73,13 +70,6 @@ projetSpec.home={
 				formValide=false;
 			}else{
 				document.getElementById('title_error').value='';
-			}
-			if(!document.getElementById('text').value){
-				document.getElementById('text_error').value='Vous devez entrer un texte.';
-				formValide=false;
-			}
-			else{
-				document.getElementById('text_error').value='';
 			}
 			if(formValide){
 				let action='modify_entry';
@@ -110,6 +100,38 @@ projetSpec.home={
     document.getElementById('cat').value=e.currentTarget.label;
     document.getElementById('idCat').value=e.currentTarget.id;
     document.getElementById('search_result_cat').innerHTML="";
+  },
+  createLab:function(e){
+    var entryId;
+    if(document.getElementById('idEntry').value!=''){
+      entryId=document.getElementById('idEntry').value;
+    }
+    let action='create_lab';
+    let dataIn={labelName:document.getElementById('lab').value,entryId:entryId};
+    document.getElementById('lab').value='';
+    document.getElementById('lab_search').innerHTML='';
+    serverRequest(this,action,dataIn);
+  },
+  supprimerLab:function(e,id){
+    var entryId;
+    if(document.getElementById('idEntry').value!=''){
+      entryId=document.getElementById('idEntry').value;
+    }
+    let action='supprimer_lab';
+    let dataIn={label:id,entryId:entryId};
+    serverRequest(this,action,dataIn);
+  },
+  searchLab:function(e){
+    document.getElementById('lab_search').innerHTML='';
+    console.log(document.getElementById('lab_search').innerHTML);
+    if(document.getElementById('lab').value!=""){
+      document.getElementById('lab_search').innerHTML='<listitem id="new" onclick="projetSpec.home.createLab(event);">Create new label : «'+document.getElementById('lab').value+'»</listitem>';
+      let action='search_lab';
+      let dataIn={needle:document.getElementById('lab').value};
+      serverRequest(this,action,dataIn);
+    }else{
+      document.getElementById('lab_search').innerHTML='';
+    }
   },
 	serverReturn:function(dataOut){
 		if(dataOut.erreur){
@@ -170,10 +192,21 @@ projetSpec.home={
     }
     if(dataOut.search_result_cat){
       document.getElementById('search_result_cat').innerHTML="";
+      var cpt=0;
       for(var key in dataOut.search_result_cat){
-        console.log(dataOut.search_result_cat[key].id);
-        console.log(dataOut.search_result_cat[key].name);
-        document.getElementById('search_result_cat').innerHTML+='<button id="'+dataOut.search_result_cat[key].id+'" label="'+dataOut.search_result_cat[key].name+'" onclick="projetSpec.home.selectCat(event);"/> ';
+        if(cpt<5){
+          console.log(cpt);
+          console.log(dataOut.search_result_cat[key].id);
+          console.log(dataOut.search_result_cat[key].name);
+          document.getElementById('search_result_cat').innerHTML+='<button id="'+dataOut.search_result_cat[key].id+'" label="'+dataOut.search_result_cat[key].name+'" onclick="projetSpec.home.selectCat(event);"/>';
+          cpt++;
+        }
+      }
+    }
+    if(dataOut.labels){
+      document.getElementById('lab_list').innerHTML='';
+      for(var key in dataOut.labels){
+        document.getElementById('lab_list').innerHTML+='<html:span>   '+dataOut.labels[key]+' <html:span onclick="projetSpec.home.supprimerLab(event,'+key+');">X</html:span></html:span>';
       }
     }
 	},
