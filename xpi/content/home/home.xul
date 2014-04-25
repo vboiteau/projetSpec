@@ -5,8 +5,8 @@
 <window id="projetSpec-home" title="&home.title;" orient="vertical" xmlns:html="http://www.w3.org/1999/xhtml" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 	<script type="application/x-javascript" src="chrome://projetSpec/content/js/commun.js" />
 	<script type="application/x-javascript" src="chrome://projetSpec/content/home/home.js" />
-	<hbox>
-    <html:input type='hidden' id='idEntry'/>
+<hbox>
+  <html:input type='hidden' id='idEntry'/>
 	<vbox>
 		<hbox>
 			<button label="&signout.button;" oncommand="projetSpec.home.signout(event);"/>
@@ -16,36 +16,37 @@
 		</hbox>
 		<hbox>
 			<label control='title' value='&entry.title;' />
-			<textbox id='title' onblur="projetSpec.home.addEntry(event);"/>
+			<textbox id='title' onblur="projetSpec.home.addEntry(event);" onkeyup="projetSpec.home.switchFieldset(event);"/>
 		</hbox>
-		<label id="title_error"/>
-		<hbox>
-			<label control='text' value='&entry.text;' />
-			<html:textarea id='text' onblur="projetSpec.home.modifyEntry(event);"/>
-		</hbox>
-		<label id="text_error"/>
-		<hbox>
-			<label control='type' value='&entry.type;' />
-			<html:select id='type' onchange="projetSpec.home.modifyEntry(event);" name='type'>
-			</html:select>
-		</hbox>
-    <label id="type_error"/>
-    <hbox>
-      <label control='cat' value='&entry.cat;' />
-      <textbox id='cat' onkeyup='projetSpec.home.chargeCat(event);' onblur='projetSpec.home.chooseCat(event);'/>
-      <html:input type='hidden' id='idCat'/>
-    </hbox>
-    <hbox id='search_result_cat'>
+    <vbox id='fieldset'>
+  		<label id="title_error"/>
+  		<hbox>
+  			<label control='text' value='&entry.text;' />
+  			<html:textarea id='text' onblur="projetSpec.home.modifyEntry(event);"/>
+  		</hbox>
+  		<label id="text_error"/>
+  		<hbox style='display:none'>
+  			<label control='type' value='&entry.type;' />
+  			<html:select id='type' onchange="projetSpec.home.modifyEntry(event);" name='type'>
+  			</html:select>
+  		</hbox>
+      <label id="type_error"/>
+      <hbox>
+        <label control='cat' value='&entry.cat;' />
+        <textbox id='cat' onkeyup='projetSpec.home.chargeCat(event);' onblur='projetSpec.home.chooseCat(event);'/>
+        <html:input type='hidden' id='idCat'/>
+      </hbox>
+      <hbox id='search_result_cat'>
 
-    </hbox>
-    <hbox>
-      <label control='lab' value='&entry.lab;' />
-      <textbox id='lab' onkeyup='projetSpec.home.searchLab(event);'/>
-    </hbox>
-    <listbox id='lab_search'></listbox>
-    <hbox id='lab_list'>
-
-    </hbox>
+      </hbox>
+      <hbox>
+        <label control='lab' value='&entry.lab;' />
+        <textbox id='lab' onkeyup='projetSpec.home.searchLab(event);'/>
+      </hbox>
+      <listbox id='lab_search'></listbox>
+      <hbox id='lab_list'>
+      </hbox>
+    </vbox>
 	<html:div type='content'>
 	</html:div>
 	</vbox>

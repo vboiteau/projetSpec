@@ -6,6 +6,7 @@ projetSpec.home={
 		let dataIn={};
 		serverRequest(this,action,dataIn);
     document.getElementById('title').focus();
+    document.getElementById('fieldset').hidden=true;
 	},
 	signout:function(e){
 		action="sign_out";
@@ -17,73 +18,77 @@ projetSpec.home={
 		dataIn={};
 		serverRequest(this,action,dataIn);
 	},
+  switchFieldset:function(e){
+    if(e.currentTarget.value){
+      document.getElementById('fieldset').hidden=false;
+    }else{
+      document.getElementById('fieldset').hidden=true;
+    }
+  },
 	loadEntry:function(e){
 		this.active=e.currentTarget.id;
 		let action='load_entry';
 		let dataIn={username:this.username,id:this.active};
 		serverRequest(this,action,dataIn);
+    document.getElementById('fieldset').hidden=false;
 	},
 	addEntry:function(e){
-		var e = document.getElementById("type");
-		var strUser = e.options[e.selectedIndex].value;
-		let formValide=true;
-		if(strUser=='1'){
-			if(!document.getElementById('title').value){
-				document.getElementById('title').value='default value';
-			}
-			if(formValide){
-				let action='add_entry';
-				let dataIn={
-					username:this.username,
-					title:document.getElementById('title').value,
-					text:document.getElementById('text').value,
-					type:1,
-          id_categorie:document.getElementById('idCat').value
-				};
-				serverRequest(this,action,dataIn);
-			}
-		}
+    if(document.getElementById('idEntry').value){
+      projetSpec.home.modifyEntry();
+    }
+    else if(document.getElementById('title').value){
+      var e = document.getElementById("type");
+      var strUser = e.options[e.selectedIndex].value;
+      let formValide=true;
+      if(strUser=='1'){
+        if(!document.getElementById('title').value){
+          document.getElementById('title').value='default value';
+        }
+        if(formValide){
+          let action='add_entry';
+          let dataIn={
+            username:this.username,
+            title:document.getElementById('title').value,
+            text:document.getElementById('text').value,
+            type:1,
+            id_categorie:document.getElementById('idCat').value
+          };
+          serverRequest(this,action,dataIn);
+        }
+      }
+    }
 	},
   chooseCat:function(e){
     let action='choose_cat';
-    let dataIn={cat:document.getElementById('cat').value};
+    let dataIn={id_entry:document.getElementById('idEntry').value,cat:document.getElementById('cat').value};
     serverRequest(this,action,dataIn);
   },
   chargeCat:function(e){
     if(document.getElementById('cat').value!=""){
-      console.log('string');
       let action='search_cat';
       let dataIn={cat:document.getElementById('cat').value};
       serverRequest(this,action,dataIn);
     }else{
-      console.log('no string');
       document.getElementById('search_result_cat').innerHTML='';
     }
   },
 	modifyEntry:function(e){
 		var e = document.getElementById("type");
 		var strUser = e.options[e.selectedIndex].value;
-		let formValide=true;
 		if(strUser=='1'){
 			if(!document.getElementById('title').value){
-				document.getElementById('title_error').value='Vous devez entrer un titre.';
-				formValide=false;
-			}else{
-				document.getElementById('title_error').value='';
+				document.getElementById('title').value='defaultVal';
 			}
-			if(formValide){
-				let action='modify_entry';
-				let dataIn={
-					id:this.active,
-					username:this.username,
-					title:document.getElementById('title').value,
-					text:document.getElementById('text').value,
-					type:1,
-          id_categorie:document.getElementById('idCat').value
-				};
-				serverRequest(this,action,dataIn);
-			}
-		}
+			let action='modify_entry';
+			let dataIn={
+				id:this.active,
+				username:this.username,
+				title:document.getElementById('title').value,
+				text:document.getElementById('text').value,
+				type:1,
+			};
+			serverRequest(this,action,dataIn);
+    }
 	},
 	removeEntry:function(e){
 		var unId=e.currentTarget.id.substring(7);
@@ -100,6 +105,9 @@ projetSpec.home={
     document.getElementById('cat').value=e.currentTarget.label;
     document.getElementById('idCat').value=e.currentTarget.id;
     document.getElementById('search_result_cat').innerHTML="";
+    let action='assign_cat';
+    let dataIn={id_entry:document.getElementById('idEntry').value,id_cat:document.getElementById('idCat').value};
+    serverRequest(this,action,dataIn);
   },
   createLab:function(e){
     var entryId;
@@ -123,15 +131,23 @@ projetSpec.home={
   },
   searchLab:function(e){
     document.getElementById('lab_search').innerHTML='';
-    console.log(document.getElementById('lab_search').innerHTML);
     if(document.getElementById('lab').value!=""){
-      document.getElementById('lab_search').innerHTML='<listitem id="new" onclick="projetSpec.home.createLab(event);">Create new label : «'+document.getElementById('lab').value+'»</listitem>';
+      document.getElementById('lab_search').innerHTML='<listitem id="new" onclick="projetSpec.home.createLab(event);" label="Create new label : «'+document.getElementById('lab').value+'»"/>';
       let action='search_lab';
-      let dataIn={needle:document.getElementById('lab').value};
+      let dataIn={needle:document.getElementById('lab').value,id_entry:document.getElementById('idEntry').value};
       serverRequest(this,action,dataIn);
     }else{
       document.getElementById('lab_search').innerHTML='';
     }
+  },
+  selectLab:function(e){
+    idlabel=e.currentTarget.id;
+    identry=document.getElementById('idEntry').value;
+    document.getElementById('lab').value='';
+    document.getElementById('lab_search').innerHTML='';
+    let action='select_lab';
+    let dataIn={id_label:idlabel,id_entry:identry};
+    serverRequest(this,action,dataIn);
   },
 	serverReturn:function(dataOut){
 		if(dataOut.erreur){
@@ -195,9 +211,6 @@ projetSpec.home={
       var cpt=0;
       for(var key in dataOut.search_result_cat){
         if(cpt<5){
-          console.log(cpt);
-          console.log(dataOut.search_result_cat[key].id);
-          console.log(dataOut.search_result_cat[key].name);
           document.getElementById('search_result_cat').innerHTML+='<button id="'+dataOut.search_result_cat[key].id+'" label="'+dataOut.search_result_cat[key].name+'" onclick="projetSpec.home.selectCat(event);"/>';
           cpt++;
         }
@@ -207,6 +220,13 @@ projetSpec.home={
       document.getElementById('lab_list').innerHTML='';
       for(var key in dataOut.labels){
         document.getElementById('lab_list').innerHTML+='<html:span>   '+dataOut.labels[key]+' <html:span onclick="projetSpec.home.supprimerLab(event,'+key+');">X</html:span></html:span>';
+      }
+    }
+    if(dataOut.label_search_results){
+      var cpt=0;
+      for(var key in dataOut.label_search_results){
+        document.getElementById('lab_search').innerHTML+='<listitem id="'+key+'" onclick="projetSpec.home.selectLab(event);" label="'+cpt+' '+dataOut.label_search_results[key]+'"/>';
+        cpt++;
       }
     }
 	},

@@ -64,9 +64,58 @@
         case 'supprimer_lab':
           supprimerLab();
           break;
+        case 'assign_cat':
+          assignCat($arrIn['id_cat']);
+          break;
+        case 'search_lab':
+          searchLab($arrIn['needle'],$arrIn['id_entry']);
+          break;
+        case 'select_lab':
+          selectLab($arrIn['id_label'],$arrIn['id_entry']);
+          break;
 			}
 		}
 	}
+  function selectLab($id_label,$id_entry){
+    $query="INSERT INTO t_entry_label(id_entry,id_label) VALUES(?,?)";
+    $result=$GLOBALS['mysqli']->prepare($query);
+    $result->bind_param('ii',$id_entry,$id_label);
+    $result->execute();
+    $result->close();
+    returnLabel();
+    encode();
+  }
+  function createIdBlacklist($id_entry){
+    $query="SELECT id_label FROM t_entry_label WHERE id_entry=?";
+    $result=$GLOBALS['mysqli']->prepare($query);
+    $result->bind_param('i',$id_entry);
+    $result->execute();
+    $result->bind_result($id_label);
+    $blacklist=array();
+    while ($result->fetch()) {
+      array_push($blacklist, $id_label);
+    }
+    $result->close();
+    return $blacklist;
+  }
+  function searchLab($needle,$id_entry){
+    $blacklist=createIdBlacklist($id_entry);
+    $needle="%$needle%";
+    $query="SELECT id_label, label_name FROM t_label WHERE label_name LIKE ? ";
+    foreach($blacklist as $key=>$id){
+      $query.="AND id_label<>$id ";
+    }
+    $query.=" LIMIT 0,9";
+    $result=$GLOBALS["mysqli"]->prepare($query);
+    $result->bind_param('s',$needle);
+    $result->execute();
+    $result->bind_result($id_label,$label_name);
+    while($result->fetch()){
+      $GLOBALS['arrOut']['label_search_results'][$id_label]=$label_name;
+    }
+    $result->close();
+    encode();
+  }
   function createLab(){
     $label_name=$GLOBALS['arrIn']['labelName'];
     if(isset($GLOBALS['arrIn']['entryId'])){
@@ -90,6 +139,15 @@
     returnLabel();
     encode();
   }
+  function assignCat($id_cat){
+    $id_entry=$GLOBALS['arrIn']['id_entry'];
+    $query="UPDATE t_entry SET id_categorie=? WHERE id_entry=?";
+    $result=$GLOBALS['mysqli']->prepare($query);
+    $result->bind_param('ii',$id_cat,$id_entry);
+    $result->execute();
+    $result->close();
+    $GLOBALS["arrOut"]["assignCatSuccess"]=true;
+  }
   function supprimerLab(){
     $label=$GLOBALS['arrIn']['label'];
     if(isset($GLOBALS['arrIn']['entryId'])){
@@ -105,8 +163,12 @@
     returnLabel();
     encode();
   }
-  function returnCat(){
-    $idCat=$GLOBALS['arrIn']['id'];
+  function returnCat($id=false){
+    if(!$id){
+      $idCat=$GLOBALS['arrIn']['id'];
+    }else{
+      $idCat=$id;
+    }
     $query="SELECT categorie_name FROM t_categorie WHERE id_categorie=?";
     $result=$GLOBALS['mysqli']->prepare($query);
     $result->bind_param('i',$idCat);
@@ -116,7 +178,9 @@
       $GLOBALS['arrOut']['categorie_name']=$catName;
     }
     $result->close();
-    encode();
+    if(!$id){
+      encode();
+    }
   }
   function chooseCat(){
     $cat=$GLOBALS['arrIn']['cat'];
@@ -127,6 +191,7 @@
     $GLOBALS['arrOut']['newCatId']=$result->insert_id;
     $result->close();
     if($GLOBALS['arrOut']['newCatId']){
+      assignCat($GLOBALS['arrOut']['newCatId']);
       encode();
     }else{
       returnIdCat();
@@ -140,9 +205,10 @@
     $result->execute();
     $result->bind_result($id);
     while($result->fetch()){
-      $GLOBALS['arrOut']['newCatId']=$id;
+      $leId=$id;
     }
     $result->close();
+    assignCat($leId);
     encode();
   }
 	function removeEntry(){
@@ -305,7 +371,7 @@
     $result->close();
 		returnEntries();
 	}
-	function loadEntry(){
+	function loadEntry($calld=false){
     if(isset($_SESSION['projetSpec']['labs'])){
       unset($_SESSION['projetSpec']['labs']);
     }
@@ -326,16 +392,19 @@
 		}
 		$GLOBALS['arrOut']['load']=$arrLoad;
 		$result->close();
+    //returnCat($arrLoad['id_categorie']);
     returnLabel();
     //echo 'return label end';
-		encode();
+    encode();
 	}
   function returnLabel(){
-    if(isset($GLOBALS['arrIn']['id'])||isset($GLOBALS['arrIn']['entryId'])){
+    if(isset($GLOBALS['arrIn']['id'])||isset($GLOBALS['arrIn']['entryId'])||isset($GLOBALS['arrIn']['id_entry'])){
       if(isset($GLOBALS['arrIn']['id'])){
         $id_entry=(int)$GLOBALS['arrIn']['id'];
-      }else{
+      }else if(isset($GLOBALS['arrIn']['entryId'])){
         $id_entry=$GLOBALS['arrIn']['entryId'];
+      }else{
+        $id_entry=$GLOBALS['arrIn']['id_entry'];
       }
       $query="SELECT t_label.id_label, label_name FROM t_label INNER JOIN t_entry_label ON t_entry_label.id_label=t_label.id_label WHERE t_entry_label.id_entry=?";
       $result=$GLOBALS['mysqli']->prepare($query);
@@ -360,11 +429,10 @@
 		$title=$GLOBALS['arrIn']['title'];
 		$text=$GLOBALS['arrIn']['text'];
 		$type=$GLOBALS['arrIn']['type'];
-    $catId=$GLOBALS['arrIn']['id_categorie'];
     $date=returnDate();
-		$query="UPDATE t_entry SET title=?,last_modification_date=?,entry_text=?,id_type=?,id_categorie=? WHERE id_user=? AND id_entry=?";
+		$query="UPDATE t_entry SET title=?,last_modification_date=?,entry_text=?,id_type=? WHERE id_user=? AND id_entry=?";
 		$result=$GLOBALS['mysqli']->prepare($query);
-		$result->bind_param('ssssiii',$title,$date,$text,$type,$catId,$id_user,$id_entry);
+		$result->bind_param('ssssii',$title,$date,$text,$type,$id_user,$id_entry);
 		$result->execute();
 		$result->close();
 		returnEntries();
