@@ -132,7 +132,6 @@ projetSpec.home={
   searchLab:function(e){
     document.getElementById('lab_search').innerHTML='';
     if(document.getElementById('lab').value!=""){
-      document.getElementById('lab_search').innerHTML='<listitem id="new" onclick="projetSpec.home.createLab(event);" label="Create new label : «'+document.getElementById('lab').value+'»"/>';
       let action='search_lab';
       let dataIn={needle:document.getElementById('lab').value,id_entry:document.getElementById('idEntry').value};
       serverRequest(this,action,dataIn);
@@ -228,8 +227,15 @@ projetSpec.home={
       }
     }
     if(dataOut.label_search_results){
-      console.log('nope');
-      var cpt=0;
+      if(dataOut.label_search_results.new){
+        document.getElementById('lab_search').innerHTML='<listitem id="new" onclick="projetSpec.home.createLab(event);" label="0 Create new label : «'+dataOut.label_search_results.new+'»"/>';
+        var cpt=1;
+        delete dataOut.label_search_results.new;
+      }else{
+        var cpt=0;
+      }
+      console.log(cpt);
+      console.log(dataOut.label_search_results);
       for(var key in dataOut.label_search_results){
         document.getElementById('lab_search').innerHTML+='<listitem id="'+key+'" onclick="projetSpec.home.selectLab(event);" label="'+cpt+' '+dataOut.label_search_results[key]+'"/>';
         cpt++;

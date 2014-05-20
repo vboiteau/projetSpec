@@ -100,18 +100,25 @@
   }
   function searchLab($needle,$id_entry){
     $blacklist=createIdBlacklist($id_entry);
-    $needle="%$needle%";
+    $needleExist=false;
+    $needleSQL="%$needle%";
     $query="SELECT id_label, label_name FROM t_label WHERE label_name LIKE ? ";
     foreach($blacklist as $key=>$id){
       $query.="AND id_label<>$id ";
     }
     $query.=" LIMIT 0,9";
     $result=$GLOBALS["mysqli"]->prepare($query);
-    $result->bind_param('s',$needle);
+    $result->bind_param('s',$needleSQL);
     $result->execute();
     $result->bind_result($id_label,$label_name);
     while($result->fetch()){
+      if($label_name==$needle){
+        $needleExist=true;
+      }
       $GLOBALS['arrOut']['label_search_results'][$id_label]=$label_name;
+    }
+    if(!$needleExist){
+      $GLOBALS['arrOut']['label_search_results']['new']=$needle;
     }
     $result->close();
     encode();
