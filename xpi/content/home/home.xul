@@ -36,14 +36,14 @@
         <textbox id='cat' onkeyup='projetSpec.home.chargeCat(event);' onblur='projetSpec.home.chooseCat(event);'/>
         <html:input type='hidden' id='idCat'/>
       </hbox>
-      <hbox id='search_result_cat'>
+      <hbox id='search_result_cat' >
 
       </hbox>
       <hbox>
         <label control='lab' value='&entry.lab;' />
         <textbox id='lab' onkeyup='projetSpec.home.searchLab(event);'/>
       </hbox>
-      <listbox id='lab_search'></listbox>
+      <listbox id='lab_search' onkeyup="projetSpec.home.keySelection(event);"></listbox>
       <hbox id='lab_list'>
       </hbox>
     </vbox>
