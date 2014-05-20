@@ -25,6 +25,14 @@ function serverRequest(caller,action,dataIn){
     }
     xmlRequest.send(strPost);
 }
+function isEmpty(obj) {
+    for(var prop in obj) {
+        if(obj.hasOwnProperty(prop))
+            return false;
+    }
+
+    return true;
+}
 function openNewWindow(url,title){
     window.open(content+url,"projetSpec-"+title,"chrome,centerscreen");
 }
