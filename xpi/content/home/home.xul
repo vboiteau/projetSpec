@@ -2,10 +2,10 @@
 <?xml-stylesheet type="text/css" href="chrome://global/skin/" ?>
 <?xml-stylesheet type="text/css" href="chrome://projetSpec/skin/style.css"?>
 <!DOCTYPE overlay SYSTEM "chrome://projetSpec/locale/text.dtd">
-<window id="projetSpec-home" title="&home.title;" orient="vertical" xmlns:html="http://www.w3.org/1999/xhtml" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+<window id="projetSpec-home" title="&home.title;" orient="vertical" xmlns:html="http://www.w3.org/1999/xhtml" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul" class='projetSpec'>
 	<script type="application/x-javascript" src="chrome://projetSpec/content/js/commun.js" />
 	<script type="application/x-javascript" src="chrome://projetSpec/content/home/home.js" />
-<hbox>
+<hbox class='content'>
   <html:input type='hidden' id='idEntry'/>
 	<vbox>
 		<hbox>
@@ -44,7 +44,9 @@
         <textbox id='lab' onkeyup='projetSpec.home.searchLab(event);'/>
       </hbox>
       <listbox id='lab_search' onkeyup="projetSpec.home.keySelection(event);"></listbox>
-      <hbox id='lab_list'>
+      <hbox>
+        <html:p id='lab_list'>
+        </html:p>
       </hbox>
     </vbox>
 	<html:div type='content'>

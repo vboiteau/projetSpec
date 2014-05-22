@@ -140,7 +140,41 @@ projetSpec.home={
     }
   },
   keySelection:function(e){
-    console.log(e);
+    if(e.which==32||e.which==13){
+      projetSpec.home.selectLabByKey();
+      return;
+    }
+    var min=e.which<57?48:96;
+    var keyChar=e.which-min;
+    if(-1<keyChar && keyChar<10){
+      listItems=e.currentTarget.childNodes;
+      for(var key in listItems){
+        if(key==keyChar){
+          e.currentTarget.selectedItem=listItems[key];
+        }
+      }
+    }
+  },
+  selectLabByKey:function(){
+    var sI=$('lab_search').selectedItem;
+    if(sI){
+      var action;
+      var dataIn;
+      var sII=sI.id;
+      sIE=$('idEntry').value;
+      if(sII=='new'){
+        var sIV=$('lab').value;
+        action='create_lab';
+        dataIn={labelName:sIV,entryId:sIE};
+      }else{
+        action='select_lab';
+        dataIn={id_label:sII,id_entry:sIE};
+      }
+      console.log(action,dataIn);
+      serverRequest(this,action,dataIn);
+      document.getElementById('lab').value='';
+      document.getElementById('lab_search').innerHTML='';
+    }
   },
   selectLab:function(e){
     idlabel=e.currentTarget.id;
@@ -153,7 +187,6 @@ projetSpec.home={
   },
 	serverReturn:function(dataOut){
     if(isEmpty(dataOut)){
-      console.log('no data');
       return;
     }
 		if(dataOut.erreur){
@@ -231,16 +264,15 @@ projetSpec.home={
     }
     if(dataOut.label_search_results){
       if(dataOut.label_search_results.new){
-        document.getElementById('lab_search').innerHTML='<listitem id="new" onclick="projetSpec.home.createLab(event);" accesskey="0" label="0 Create new label : «'+dataOut.label_search_results.new+'»"/>';
+        document.getElementById('lab_search').innerHTML='<listitem id="new" onclick="projetSpec.home.createLab(event);" accesskey="0" class="label_choice" label="0 Create new label : «'+dataOut.label_search_results.new+'»"/>';
         var cpt=1;
         delete dataOut.label_search_results.new;
       }else{
         var cpt=0;
+        document.getElementById('lab_search').innerHTML='';
       }
-      console.log(cpt);
-      console.log(dataOut.label_search_results);
       for(var key in dataOut.label_search_results){
-        document.getElementById('lab_search').innerHTML+='<listitem id="'+key+'" onclick="projetSpec.home.selectLab(event);" accesskey="'+cpt+'" label="'+cpt+' '+dataOut.label_search_results[key]+'"/>';
+        document.getElementById('lab_search').innerHTML+='<listitem id="'+key+'" onclick="projetSpec.home.selectLab(event);" class="label_choice" accesskey="'+cpt+'" label="'+cpt+' '+dataOut.label_search_results[key]+'"/>';
         cpt++;
       }
     }

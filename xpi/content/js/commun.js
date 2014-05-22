@@ -4,7 +4,7 @@
 if ("undefined" == typeof(projetSpec)) {
   var projetSpec = {};
 };
-var url='http://spec.loc/extension/index.php';
+var url='http://vboirob.com/projetSpec/extension/';
 var content="chrome://projetSpec/content/";
 function serverRequest(caller,action,dataIn){
 	let dataEnJSON=JSON.stringify(dataIn);
@@ -41,4 +41,10 @@ function i(strInput){
 }
 function si(strInput,valeur){
     document.getElementById(strInput).value=valeur;
+}
+function $(id){
+  return document.getElementById(id);
+}
+function $attr(id,attr){
+  return $(id).getAttribute(attr)
 }

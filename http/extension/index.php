@@ -77,6 +77,8 @@
 		}
 	}
   function selectLab($id_label,$id_entry){
+    var_dump($id_label);
+    var_dump($id_entry);
     $query="INSERT INTO t_entry_label(id_entry,id_label) VALUES(?,?)";
     $result=$GLOBALS['mysqli']->prepare($query);
     $result->bind_param('ii',$id_entry,$id_label);
@@ -117,7 +119,7 @@
       }
       $GLOBALS['arrOut']['label_search_results'][$id_label]=$label_name;
     }
-    if(!$needleExist){
+    if(!$needleExist/*&&!$needleInBlackList*/){
       $GLOBALS['arrOut']['label_search_results']['new']=$needle;
     }
     $result->close();

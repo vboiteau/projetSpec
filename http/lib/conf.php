@@ -1,8 +1,8 @@
 <?php
   $serverName='localhost';
-  $username='spec';
-  $password='spec';
-  $database='dbspec';
+  $username='vboiteau';
+  $password='t[wh6qKhcuQ3';
+  $database='vboiteau_dbspec';
   $mysqli=new mysqli($serverName,$username,$password,$database);
   if ($mysqli->connect_errno) {
       echo "Failed to connect to MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error;

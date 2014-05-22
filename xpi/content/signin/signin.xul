@@ -3,9 +3,11 @@
 <?xml-stylesheet type="text/css" href="chrome://global/skin/" ?>
 <?xml-stylesheet type="text/css" href="chrome://projetSpec/skin/style.css"?>
 <!DOCTYPE overlay SYSTEM "chrome://projetSpec/locale/text.dtd">
-<window id="signin" title="&signin.title;" orient="vertical" xmlns:html="http://www.w3.org/1999/xhtml" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul" class="signin-process">
-	<script type="application/x-javascript" src="chrome://projetSpec/content/js/commun.js" />
-	<script type="application/x-javascript" src="chrome://projetSpec/content/signin/signin.js" />
+<window id="signin" title="&signin.title;" orient="vertical" xmlns:html="http://www.w3.org/1999/xhtml" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul" class="signin-process projetSpec">
+  <script type="application/x-javascript" src="chrome://projetSpec/content/js/commun.js" />
+  <script type="application/x-javascript" src="chrome://projetSpec/content/signin/signin.js" />
+<hbox class='content'>
+  <vbox>
 	<hbox>
 		<label control="username" value="&username.label;"/>
 		<textbox id="username"/>
@@ -20,4 +22,6 @@
 	<button label="&signin.button;" oncommand="projetSpec.signin.singin(event);"/>
 	<button label="&signup.button;" oncommand="projetSpec.signin.signup(event);"/>
 	<button label="&recoverPassword.button;" oncommand="projetSpec.signin.recoverPassword(event);"/>
+</vbox>
+</hbox>
 </window>
