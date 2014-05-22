@@ -156,14 +156,14 @@ projetSpec.home={
     }
   },
   selectLabByKey:function(){
-    var sI=$('lab_search').selectedItem;
+    var sI=$id('lab_search').selectedItem;
     if(sI){
       var action;
       var dataIn;
       var sII=sI.id;
-      sIE=$('idEntry').value;
+      sIE=$id('idEntry').value;
       if(sII=='new'){
-        var sIV=$('lab').value;
+        var sIV=$id('lab').value;
         action='create_lab';
         dataIn={labelName:sIV,entryId:sIE};
       }else{

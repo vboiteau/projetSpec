@@ -6,6 +6,9 @@ if ("undefined" == typeof(projetSpec)) {
 };
 var url='http://vboirob.com/projetSpec/extension/';
 var content="chrome://projetSpec/content/";
+function importScriptJs(addon,path){
+  Services.scriptloader.loadSubScript(addon.getResourceURI(path).spec,self);
+}
 function serverRequest(caller,action,dataIn){
 	let dataEnJSON=JSON.stringify(dataIn);
 	let strPost=action+'='+dataEnJSON;
@@ -19,7 +22,7 @@ function serverRequest(caller,action,dataIn){
      	if(xmlRequest.status!=200&&xmlRequest.status!=304){
        		alert('HTTP error'+req.status);
      	}
-        console.log(xmlRequest.responseText);
+        //console.log(xmlRequest.responseText);
      	  dataOut=JSON.parse(xmlRequest.responseText);
         caller.serverReturn(dataOut);
     }
@@ -42,7 +45,7 @@ function i(strInput){
 function si(strInput,valeur){
     document.getElementById(strInput).value=valeur;
 }
-function $(id){
+function $id(id){
   return document.getElementById(id);
 }
 function $attr(id,attr){
