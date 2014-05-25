@@ -14,7 +14,7 @@ function serverRequest(caller,action,dataIn){
     xmlRequest.onreadystatechange=function(){
       if(xmlRequest.readyState!=4) return;
       if(xmlRequest.status!=200&&xmlRequest.status!=304){
-          alert('HTTP error'+req.status);
+          //alert('HTTP error'+req.status);
       }
         //console.log(xmlRequest.responseText);
         dataOut=JSON.parse(xmlRequest.responseText);

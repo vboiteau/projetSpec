@@ -25,6 +25,17 @@ projetSpec.home={
       document.getElementById('fieldset').hidden=true;
     }
   },
+  newEntry:function(e){
+    $id('title').value='';
+    $id('idEntry').value='';
+    $id('text').value='';
+    $id('cat').value='';
+    $id('search_result_cat').innerHTML='';
+    $id('lab').value='';
+    $id('lab_search').innerHTML='';
+    $id('lab_list').innerHTML='';
+    $id('fieldset').hidden=true;
+  },
 	loadEntry:function(e){
 		this.active=e.currentTarget.id;
 		let action='load_entry';
@@ -210,7 +221,7 @@ projetSpec.home={
     if(dataOut.entries){
 			document.getElementById('liste_liens').innerHTML='';
 			for(var key in dataOut.entries){
-				document.getElementById('liste_liens').innerHTML+='<hbox><button label="'+dataOut.entries[key].title+'" oncommand="projetSpec.home.loadEntry(event);" id="'+dataOut.entries[key].id_entry+'" class="entry"/><button label="supprimer" oncommand="projetSpec.home.removeEntry(event);" id="remove_'+dataOut.entries[key].id_entry+'" class="entry"/></hbox>';
+				document.getElementById('liste_liens').innerHTML+='<hbox><button label="'+dataOut.entries[key].title+'" oncommand="projetSpec.home.loadEntry(event);" id="'+dataOut.entries[key].id_entry+'" class="entry"/><button label="X" oncommand="projetSpec.home.removeEntry(event);" id="remove_'+dataOut.entries[key].id_entry+'" class="entry delete-button" /></hbox>';
 			}
 		}
     if(dataOut.types){
@@ -259,7 +270,7 @@ projetSpec.home={
     if(dataOut.labels){
       document.getElementById('lab_list').innerHTML='';
       for(var key in dataOut.labels){
-        document.getElementById('lab_list').innerHTML+='<html:span>   '+dataOut.labels[key]+' <html:span onclick="projetSpec.home.supprimerLab(event,'+key+');">X</html:span></html:span>';
+        document.getElementById('lab_list').innerHTML+='<html:span>   '+dataOut.labels[key]+' <button label="X" onclick="projetSpec.home.supprimerLab(event,'+key+');" class="delete-button" /></html:span>';
       }
     }
     if(dataOut.label_search_results){

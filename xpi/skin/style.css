@@ -2,8 +2,9 @@
   list-style-image: url("chrome://projetSpec/skin/icon.png"); }
 
 window.projetSpec {
-  /*width:800px;
-  height:600px;*/
+  -moz-appearance: none;
+  width: 800px;
+  height: 600px;
   background-color: #2d2d2d; }
   window.projetSpec * {
     -moz-appearance: none; }
@@ -14,8 +15,12 @@ window.projetSpec {
   window.projetSpec hbox.content {
     background-color: #2d2d2d;
     color: #f2f0ec;
-    height: 100%;
-    width: 100%; }
+    height: 100%; }
+  window.projetSpec sidebar {
+    text-align: right;
+    position: absolute;
+    right: 0;
+    top: 0; }
   window.projetSpec input, window.projetSpec textbox, window.projetSpec textarea {
     background-color: #f2f0ec;
     color: #2d2d2d;
@@ -37,3 +42,12 @@ window.projetSpec {
     -moz-border-radius: 0;
     border-radius: 0;
     outline: none; }
+  window.projetSpec .delete-button {
+    background-color: #f2777a;
+    padding: 1px;
+    max-width: 1em;
+    display: inline; }
+    window.projetSpec .delete-button:hover {
+      background-color: #da5f60; }
+  window.projetSpec #lab_list, window.projetSpec #lab_search, window.projetSpec #search_result_cat {
+    max-width: 600px; }

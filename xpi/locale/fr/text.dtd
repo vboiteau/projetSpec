@@ -1,0 +1,28 @@
+<!ENTITY toolbar.button.label "Bouton de mon projet de spécialisation">
+<!ENTITY toolbar.button.tooltiptext "Ouvrir l'extension">
+
+<!ENTITY home.title "Accueil">
+<!ENTITY signout.button "Se déconnecter">
+<!ENTITY delete.button "Supprimer mon compte">
+
+<!ENTITY signin.title "Connexion">
+<!ENTITY username.label "Nom d"utilisateur:">
+<!ENTITY password.label "Mot de passe:">
+<!ENTITY signin.button "Se connecter">
+<!ENTITY signup.button "S'inscrire">
+<!ENTITY recoverPassword.button "mot de passe oublié?">
+
+<!ENTITY signup.title "Inscription">
+<!ENTITY passwordConfirmation.label "Confirmer votre mot de passe:">
+<!ENTITY question.label "Question:">
+<!ENTITY answer.label "Réponse:">
+<!ENTITY newentry "Nouvelle entrée">
+<!ENTITY askUsername.title "Demande de nom d'utilisateur">
+<!ENTITY askQuestion.title "Demande la question">
+<!ENTITY continue.button "Continuer">
+<!ENTITY recover.button "Retourner-moi mon mot de passe">
+<!ENTITY entry.title "Titre: ">
+<!ENTITY entry.text "Texte: ">
+<!ENTITY entry.type "Type de l'entrée: ">
+<!ENTITY entry.cat "Catégorie de l'entrée: ">
+<!ENTITY entry.lab "Libellés de l'entrée: ">

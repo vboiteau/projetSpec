@@ -63,13 +63,21 @@ function windowWatcher(subject,topic){
     runOnLoad(subject,loadIntoWindow);
   }
 }
-function startup(data,reason) AddonManager.getAddonByID(data.id,function(addon){
-  include(addon,"content/script.js");
-  icon=addon.getResourceURI("skin/icon.png").spec;
-  eachWindow(loadIntoWindow);
-  Services.ww.registerNotification(windowWatcher);
-});
+function startup(data,reason){
+  //if(Services.vc.compare(Services.appinfo.platformVersion,"10.0")<0){
+    Components.manager.addBootstrappedManifestLocation(data.installPath);
+  //}
+  AddonManager.getAddonByID(data.id,function(addon){
+    include(addon,"content/script.js");
+    icon=addon.getResourceURI("skin/icon.png").spec;
+    eachWindow(loadIntoWindow);
+    Services.ww.registerNotification(windowWatcher);
+  });
+}
 function shutdown(data,reason){
+  //if(Services.vc.compare(Services.appinfo.platformVersion,"10.0")<0){
+    Components.manager.removeBootstrappedManifestLocation(data.installPath);
+  //}
   Services.ww.registerNotification(windowWatcher);
   eachWindow(unloadFromWindow);
 }

@@ -1,0 +1,29 @@
+<!ENTITY toolbar.button.label "My specialisation project button">
+<!ENTITY toolbar.button.tooltiptext "My specialisation project button">
+
+<!ENTITY home.title "Home">
+<!ENTITY signout.button "Sign out">
+<!ENTITY delete.button "Delete my account">
+
+<!ENTITY signin.title "Sign in">
+<!ENTITY username.label "Username:">
+<!ENTITY password.label "Password:">
+<!ENTITY signin.button "Sign in">
+<!ENTITY signup.button "Sign up">
+<!ENTITY recoverPassword.button "forgot your password?">
+
+<!ENTITY signup.title "Sign up">
+<!ENTITY passwordConfirmation.label "Confirm you password:">
+<!ENTITY question.label "Question:">
+<!ENTITY answer.label "Answer:">
+
+<!ENTITY askUsername.title "Ask for username">
+<!ENTITY askQuestion.title "Ask me">
+<!ENTITY continue.button "Continue">
+<!ENTITY recover.button "Return my password">
+<!ENTITY newentry "New entry">
+<!ENTITY entry.title "Title: ">
+<!ENTITY entry.text "Text: ">
+<!ENTITY entry.type "Type of entry: ">
+<!ENTITY entry.cat "Category of entry: ">
+<!ENTITY entry.lab "Labels of entry: ">

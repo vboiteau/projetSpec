@@ -1,4 +1,4 @@
 content   projetSpec                content/
 skin      projetSpec  classic/1.0   skin/
-locale    projetSpec  en-US			locale/en-US/
-locale    projetSpec  fr-CA         locale/fr-CA/
+locale    projetSpec  en			locale/en/
+locale    projetSpec  fr         locale/fr/

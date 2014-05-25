@@ -22,7 +22,7 @@ function serverRequest(caller,action,dataIn){
      	if(xmlRequest.status!=200&&xmlRequest.status!=304){
        		alert('HTTP error'+req.status);
      	}
-        //console.log(xmlRequest.responseText);
+        console.log(xmlRequest.responseText);
      	  dataOut=JSON.parse(xmlRequest.responseText);
         caller.serverReturn(dataOut);
     }

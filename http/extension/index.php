@@ -77,8 +77,6 @@
 		}
 	}
   function selectLab($id_label,$id_entry){
-    var_dump($id_label);
-    var_dump($id_entry);
     $query="INSERT INTO t_entry_label(id_entry,id_label) VALUES(?,?)";
     $result=$GLOBALS['mysqli']->prepare($query);
     $result->bind_param('ii',$id_entry,$id_label);
@@ -365,6 +363,7 @@
 	}
 
 	function addEntry(){
+    //var_dump($_POST);
 		$id=returnId();
 		$title=$GLOBALS['arrIn']['title'];
 		$text=$GLOBALS['arrIn']['text'];

@@ -6,8 +6,9 @@ window.projetSpec{
   *{
     -moz-appearance:none;
   }
-  /*width:800px;
-  height:600px;*/
+  -moz-appearance:none;
+  width:800px;
+  height:600px;
   background-color: $c0;
   &.signin-process{
     /*width:400px;
@@ -18,7 +19,12 @@ window.projetSpec{
     background-color:$c0;
     color:$c7;
     height:100%;
-    width:100%;
+  }
+  sidebar{
+    text-align:right;
+    position:absolute;
+    right:0;
+    top:0;
   }
   input,textbox,textarea{
     background-color: $c7;
@@ -45,5 +51,17 @@ window.projetSpec{
     -moz-border-radius: 0;
     border-radius: 0;
     outline: none;
+  }
+  .delete-button{
+    background-color: $c8;
+    padding:1px;
+    max-width:1em;
+    display:inline;
+    &:hover{
+      background-color:#da5f60;
+    }
+  }
+  #lab_list,#lab_search,#search_result_cat{
+    max-width:600px;
   }
 }

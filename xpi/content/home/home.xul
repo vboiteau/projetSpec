@@ -1,18 +1,18 @@
 <?xml version="1.0"?>
 <?xml-stylesheet type="text/css" href="chrome://global/skin/" ?>
 <?xml-stylesheet type="text/css" href="chrome://projetSpec/skin/style.css"?>
-<!DOCTYPE overlay SYSTEM "chrome://projetSpec/locale/text.dtd">
+<!DOCTYPE window SYSTEM "chrome://projetSpec/locale/text.dtd">
 <window id="projetSpec-home" title="&home.title;" orient="vertical" xmlns:html="http://www.w3.org/1999/xhtml" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul" class='projetSpec'>
 	<script type="application/x-javascript" src="chrome://projetSpec/content/js/commun.js" />
 	<script type="application/x-javascript" src="chrome://projetSpec/content/home/home.js" />
 <hbox class='content'>
+  <box class='home-content'>
   <html:input type='hidden' id='idEntry'/>
 	<vbox>
 		<hbox>
 			<button label="&signout.button;" oncommand="projetSpec.home.signout(event);"/>
 			<button label="&delete.button;" oncommand="projetSpec.home.deleteAccount(event);"/>
-			<button label="add entry" oncommand="projetSpec.home.addEntry(event);"/>
-			<button label="modify entry" oncommand="projetSpec.home.modifyEntry(event);"/>
+			<button label="&newentry;" oncommand="projetSpec.home.newEntry(event);"/>
 		</hbox>
 		<hbox>
 			<label control='title' value='&entry.title;' />
@@ -36,9 +36,9 @@
         <textbox id='cat' onkeyup='projetSpec.home.chargeCat(event);' onblur='projetSpec.home.chooseCat(event);'/>
         <html:input type='hidden' id='idCat'/>
       </hbox>
-      <hbox id='search_result_cat' >
+      <html:p id='search_result_cat' >
 
-      </hbox>
+      </html:p>
       <hbox>
         <label control='lab' value='&entry.lab;' />
         <textbox id='lab' onkeyup='projetSpec.home.searchLab(event);'/>
@@ -49,10 +49,11 @@
         </html:p>
       </hbox>
     </vbox>
-	<html:div type='content'>
-	</html:div>
 	</vbox>
-	<vbox id="liste_liens">
-	</vbox>
+</box>
+	<sidebar>
+    <vbox id="liste_liens">
+    </vbox>
+	</sidebar>
 </hbox>
 </window>
